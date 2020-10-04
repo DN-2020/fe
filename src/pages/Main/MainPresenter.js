@@ -1,10 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import Cus_Body from './Cus_Body'
+
+
 const MainPresenter = (props) => {
   return (
     <div>
-      hello
+      <Cus_Body props={props}></Cus_Body>
+
     </div>
   )
 }
