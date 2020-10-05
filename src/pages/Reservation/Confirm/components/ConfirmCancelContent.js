@@ -24,7 +24,7 @@ const ConfirmContent = ({ data }) => {
 
   return (
     <div>
-      <h style={{ fontSize: '30px' }}>예약보기</h>
+      <h style={{ fontSize: '30px' }}>취소내역</h>
       <List bordered style={style}>
         <List.Item actions={[<RightSquareOutlined onClick={showModal} />]}>
           <List.Item.Meta
@@ -36,6 +36,9 @@ const ConfirmContent = ({ data }) => {
                 체크아웃 : {data.checkout} <br />
                 이름: {data.username}
                 <br /> 결제금액 : {data.price}
+                <br /> <br />
+                <hr />
+                취소사유 : {data.cancelreason}
               </p>
             }
           />
@@ -51,7 +54,8 @@ const ConfirmContent = ({ data }) => {
         <p>{data.name}</p>
         <p>체크아웃 :{data.checkout}</p>
         <p>이름: {data.username}</p>
-        <p>결제금액 :{data.price}</p>
+        <p>결제금액 :{data.price}</p> <hr />
+        <p> 취소사유 : {data.cancelreason} </p>
       </Modal>
     </div>
   );
