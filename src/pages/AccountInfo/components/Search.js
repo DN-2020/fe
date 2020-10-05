@@ -1,29 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Card , Button ,Avatar } from 'antd';
+import { Card, Button, Avatar } from 'antd';
 
 const { Meta } = Card;
 
-
-
-const test = props => {
-    return (
-        <>
-      <Meta style ={{marginLeft : "35%"}}
-              avatar={
-                <Avatar style={{height:150 , width:150}} src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-              }/>
-            <div style = {{marginTop : "15%" , marginLeft : "20%"}}>
-            이름 : 홍길동<br/><br/>
-            email : hong12@naver.com <br/><br/>
-            연락처 : 010-0000-0000
-            </div>
-      </>
-    );
+const test = ({ data }) => {
+  return (
+    <>
+      <Meta
+        style={{ marginLeft: '35%' }}
+        avatar={
+          <Avatar
+            style={{ height: 150, width: 150 }}
+            src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+          />
+        }
+      />
+      <div style={{ marginTop: '15%', marginLeft: '20%' }}>
+        이름 : {data.name}
+        <br />
+        <br />
+        email : {data.email} <br />
+        <br />
+        연락처 : {data.phonenum}
+      </div>
+    </>
+  );
 };
 
-test.propTypes = {
-    
-};
+test.propTypes = {};
 
 export default test;
