@@ -15,16 +15,16 @@ const ProductDetailPresenter = (props) => {
     <div style={{marginLeft:100}}>
   <br/>
   
-      <h2>굿즈 이름</h2>
+      <h2>굿즈 이름</h2><br/>
       <div>
        
       <Image 
-      
+      style={{marginLeft:-700}}
       width={600}
       src="https://image.tport.io/gds_properties/56620/7fa08d41-65c5-4093-91cb-ffd9308f5733-1000.jpg"
     /><br></br>
     <Image
-   
+   style={{marginLeft:-700}}
       width={150}
       src="https://image.tport.io/gds_properties/56620/610d55df-fb6f-49a6-a615-a89c620ac334-1000.jpg"
     />
@@ -40,7 +40,7 @@ const ProductDetailPresenter = (props) => {
       width={150}
       src="https://image.tport.io/gds_properties/56620/c6d77931-7bce-4220-9da2-2c03c3fcb5f0-1000.jpg"
     />
-    <Descriptions title="" bordered style={{float:"right",marginTop:-300,marginRight:100,width:500}}>
+    <Descriptions title="" bordered style={{float:"right",marginTop:-250,marginRight:100,width:500}}>
               <Descriptions.Item label="굿즈이름" span={3} style={{width:130}} >
               굿즈이름
               </Descriptions.Item>
@@ -62,9 +62,9 @@ const ProductDetailPresenter = (props) => {
    
     <List
       size="small"
-      style={{width:800,overflow:"scroll"}}
+      style={{width:1250}}
       header={<RangePicker
-        style={{width:500}}
+        
           ranges={{
             Today: [moment(), moment()],
             'This Month': [moment().startOf('month'), moment().endOf('month')],
@@ -79,13 +79,13 @@ const ProductDetailPresenter = (props) => {
  <br/><br/>
 <h2>Review</h2>
     <List
-      style={{width:800}}
+      style={{width:1250}}
       size="small"
       bordered
       dataSource={data}
       renderItem={item => <List.Item><a>{item}</a></List.Item>}
-    />
- 
+    /> <br/><br/><br/><br/>
+
     </div>
   )
 }
