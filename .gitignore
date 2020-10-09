@@ -11,8 +11,11 @@
 # production
 /build
 
+<<<<<<< HEAD
 #vs code
 /.vscode
+=======
+>>>>>>> df290dbea980908ba5cb4c57f211796bfc7640d0
 # misc
 .DS_Store
 .env.local
