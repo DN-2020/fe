@@ -1,4 +1,3 @@
-
 import { Layout, Input, Avatar } from "antd";
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
