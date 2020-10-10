@@ -33,7 +33,7 @@ const Cus_Header = (props) => {
                 <div className="gyun_menu_container">
                     <ul className="gyun_menus">
                         <a className="gyun_items" >장바구니</a>
-                        <a className="gyun_items" onClick={()=>history.push("/reservation/detail")}>예약</a>
+                        <a className="gyun_items" onClick={()=>history.push("/confirm")}>예약</a>
                         <a className="gyun_items" onClick={()=>history.push("/accountinfo")}>마이페이지</a>
                     </ul>
                 </div>
