@@ -4,10 +4,12 @@ import { Swiper, SwiperSlide } from "swiper/react"
 
 import { Card, Rate } from "antd";
 import "./Main.css"
-
+import {useHistory} from "react-router-dom";
 import 'swiper/swiper-bundle.css';
 
 const Cus_Body = (props) => {
+    let history=useHistory();
+    
     const { Meta } = Card;
     const imageStyle = {
         verticalAlign: 'center',
@@ -28,6 +30,10 @@ const Cus_Body = (props) => {
         width: 300,
         textAlign: 'center',
     };
+    const handleProduct=(e)=>{
+        history.push(`/productDetail/${e}`)
+    }
+    const value=1;
     return (
         <>
             <div className="gyun_body_container">
@@ -59,18 +65,18 @@ const Cus_Body = (props) => {
                 <h1 style={{ textAlign: "left", fontSize: "30px" }}>렌트카</h1>
                 <div className="main_rent_car">
                     <Swiper
-
                         navigation
                         slidesPerView={4}
                     >
-                        <SwiperSlide style={slideStyle}>
+                        <SwiperSlide>
                             <Card
+                                onClick={()=>handleProduct(value)}
                                 hoverable
                                 style={{ width: 240, textAlign: 'center' }}
                                 cover={<img style={{ height: "100px" }} src="logo192.png"></img>}
                             >
                                 <Meta
-                                    title="[산방산/펜션] 쿠하우스 #3층독채 #흑돼지 #용머리해안"
+                                    title="[산방산/펜션]  #3층독채 #흑돼지 #용머리해안"
                                     description="제주시"
                                 />
                                 <Rate disabled defaultValue={2}></Rate>

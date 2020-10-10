@@ -2,6 +2,7 @@ import React from 'react'
 import { Image, DatePicker, Space, List, Typography, Divider, Descriptions, Radio, Button } from 'antd';
 import PropTypes from 'prop-types'
 import moment from 'moment';
+import {useHistory} from "react-router-dom";
 const { RangePicker } = DatePicker;
 
 const data = [
@@ -11,6 +12,10 @@ const data = [
   
 ];
 const ProductDetailPresenter = (props) => {
+  let history =useHistory();
+  const handleReservation=(e)=>{
+    history.push(`/reservation/${e}`)
+  }
   return (
     <div style={{marginLeft:100}}>
   <br/>
@@ -64,7 +69,6 @@ const ProductDetailPresenter = (props) => {
       size="small"
       style={{width:1250}}
       header={<RangePicker
-        
           ranges={{
             Today: [moment(), moment()],
             'This Month': [moment().startOf('month'), moment().endOf('month')],
@@ -74,7 +78,7 @@ const ProductDetailPresenter = (props) => {
       footer={<Button style={{textAlign:"center"}}>가격 더 보기</Button>}
       bordered
       dataSource={data}
-      renderItem={item => <List.Item>{item}&nbsp;<Button style={{float:"right", }}>button</Button></List.Item>}
+      renderItem={item => <List.Item>{item}&nbsp;<Button  onClick={()=>handleReservation(item)} style={{float:"right", }}>button</Button></List.Item>}
     />
  <br/><br/>
 <h2>Review</h2>

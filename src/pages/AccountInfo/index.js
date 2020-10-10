@@ -1,1 +1,12 @@
-export { default as AccountInfoContainer } from './AccountInfoContainer';
+
+import AccountInfoContainer from "./AccountInfoContainer";
+import { connect } from "react-redux";
+
+export default connect(
+  ({ }) => ({
+
+  }),
+  dispatch => ({
+
+  })
+)(AccountInfoContainer);

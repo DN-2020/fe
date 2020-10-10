@@ -2,20 +2,30 @@ import { Layout, Input, Avatar } from "antd";
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Card } from "antd";
+import {useHistory} from "react-router-dom"
 import "./Main.css"
+
 const { Meta } = Card;
 const { Header } = Layout;
 const { Search } = Input;
+
 const Cus_Header = (props) => {
+    let history=useHistory();
     const login = false;
     const handleSearch = (e) => {
-        window.location.href = `/search?key=${e}`;
+        if(e!=""){
+            history.push(`/search?key=${e}`);
+        }
+        
+    }
+    const goMain=()=>{
+        history.push("/");
     }
     return (
         <>
             <div className="gyun_header" >
                 <div className="gyun_logo" style={{ textAlign: "center" }}>
-                    <a><img style={{ height: "50px" }} src="logo192.png"></img></a>
+                    <a onClick={()=>goMain()}><img style={{ height: "50px" }} src="logo192.png"></img></a>
                 </div>
                 <div className="gyun_search_container" >
                     <Search className="gyun_searchs" allowClear onSearch={handleSearch}></Search>

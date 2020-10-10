@@ -3,6 +3,7 @@ import { DatePicker,Checkbox, Divider, Descriptions, Card, Form, Input, InputNum
 import PropTypes from 'prop-types'
 import moment from 'moment';
 import { useStore } from 'react-redux';
+import {useHistory} from "react-router-dom"
 const { RangePicker } = DatePicker;
 const { Meta } = Card;
 const { Option } = Select;
@@ -67,11 +68,13 @@ const onBlur=()=> {
 const onFocus=()=> {
   console.log('focus');
 }
-
+let hiotory=useHistory();
 const onSearch=(val)=> {
   console.log('search:', val);
 }
-    
+const handleSubmit=(data)=>{
+  hiotory.push("/reservation/detail/1")
+}
   return (
     <div style={{marginLeft:350}}>
    <br/>
@@ -237,7 +240,7 @@ const onSearch=(val)=> {
       <Button type="button" htmlType="submit">
           Cancel
         </Button>
-        <Button type="primary" htmlType="submit">
+        <Button onClick={()=>handleSubmit()} type="primary" htmlType="submit">
           Submit
         </Button>
         <br/><br/><br/><br/>

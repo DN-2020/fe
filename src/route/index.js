@@ -9,12 +9,12 @@ const Routes = () => (
     <Route exact path="/" component={Main} />
     <Route exact path="/search" component={Search} />
     <Route path="/productDetail" component={ProductDetail} />
-    <Route path="/reservation" component={Reservation} />
+    <Route exact path="/reservation/:num" component={Reservation} />
     <Route exact path="/accountinfo" component={AccountInfoContainer} />
     <Route exact path="/user/login" component={LoginContainer} />
     <Route exact path="/user/register" component={RegisterContainer} />
     <Route exact path="/reservation/cancel/:rsvnum" component={CancelDetailContainer} />
-    <Route exact path="/reservation/detail" component={DetailContainer} />
+    <Route exact path="/reservation/detail/:num" component={DetailContainer} />
     <Route exact path="/reservation/confirm" component={ConfirmContainer} />
     <Route exact path="/reservation/cancel" component={CancelContainer} />
     <Route
