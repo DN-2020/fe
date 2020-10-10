@@ -45,7 +45,7 @@ const Cus_Body = (props) => {
 
                     >
                         <SwiperSlide key={1} style={slideStyle} >
-                            <img style={imageStyle} src="logo192.png"></img>
+                            <img  style={imageStyle} src="logo192.png"></img>
                         </SwiperSlide>
                         <SwiperSlide key={2} style={slideStyle} >
                             <img style={imageStyle} src="logo192.png"></img>
