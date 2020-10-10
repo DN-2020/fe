@@ -13,13 +13,13 @@ const Routes = () => (
     <Route exact path="/accountinfo" component={AccountInfoContainer} />
     <Route exact path="/user/login" component={LoginContainer} />
     <Route exact path="/user/register" component={RegisterContainer} />
-    <Route exact path="/reservation/cancel/:rsvnum" component={CancelDetailContainer} />
-    <Route exact path="/reservation/detail/:num" component={DetailContainer} />
-    <Route exact path="/reservation/confirm" component={ConfirmContainer} />
-    <Route exact path="/reservation/cancel" component={CancelContainer} />
+    <Route exact path="/cancel/:rsvnum" component={CancelDetailContainer} />
+    <Route exact path="/detail/:num" component={DetailContainer} />
+    <Route exact path="/confirm" component={ConfirmContainer} />
+    <Route exact path="/cancel" component={CancelContainer} />
     <Route
       exact
-      path="/reservation/confirm/cancel"
+      path="/confirm/cancel"
       component={ConfirmCancelContainer}
     />
   </Switch>
