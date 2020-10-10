@@ -21,7 +21,9 @@ const DashBoardSider = (props) => {
           <Menu.Item key="4">리뷰관리</Menu.Item>
         </SubMenu>
         <SubMenu key="sub3" title="고객관리">
-          <Menu.Item key="5">고객관리</Menu.Item>
+          <Menu.Item key="5">
+            <Link to="/manage/customer">고객관리</Link>
+          </Menu.Item>
         </SubMenu>
         <SubMenu key="sub4" title="회사부서관리">
           <Menu.Item key="6">회사관리</Menu.Item>

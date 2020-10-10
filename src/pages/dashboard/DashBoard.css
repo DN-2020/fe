@@ -15,7 +15,8 @@
   background-color: #ffffff;
   width: 200px;
   height: 500px;
-  margin-top: 20%;
+  margin-left: 10%;
+  margin-top: 8%;
   height: 800;
 }
 .CalendarStyle {
@@ -23,12 +24,13 @@
   height: 500px;
 }
 #section {
-  margin-top: 5%;
+  border-style: groove;
+  margin-top: 2%;
   text-align: left;
+  overflow: hidden;
+  height: 65%;
 }
-.navMeta {
-  height: 400px;
-}
+
 #header,
 #nav,
 #section,
@@ -51,3 +53,9 @@
     height: auto;
   }
 } */
+.ant-card-head {
+  height: 10px;
+}
+.ant-card-body {
+  height: 10px;
+}
