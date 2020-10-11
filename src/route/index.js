@@ -1,13 +1,12 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-
-import { Main, DashBoardContainer, CustomerContainer } from '../pages';
+import CompanyRouter from './CompanyRouter';
+import { Main } from '../pages';
 
 const Routes = () => (
   <Switch>
-    <Route exact path="/" component={Main} />
-    <Route exact path="/manage/dashboard" component={DashBoardContainer} />
-    <Route exact path="/manage/customer" component={CustomerContainer} />
+    <Route path="/company" component={CompanyRouter} />
+    <Route exact path="/" component={Main}></Route>
   </Switch>
 );
 

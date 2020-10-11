@@ -11,7 +11,7 @@ const DashBoardSider = (props) => {
       <div className="logo" />
       <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
         <Menu.Item key="1">
-          <Link to="/manage/dashboard">대시보드</Link>
+          <Link to="/company/dashboard">대시보드</Link>
         </Menu.Item>
         <SubMenu key="sub1" title="상품 및 예약">
           <Menu.Item key="2">상품관리</Menu.Item>
@@ -22,7 +22,7 @@ const DashBoardSider = (props) => {
         </SubMenu>
         <SubMenu key="sub3" title="고객관리">
           <Menu.Item key="5">
-            <Link to="/manage/customer">고객관리</Link>
+            <Link to="/company/customer">고객관리</Link>
           </Menu.Item>
         </SubMenu>
         <SubMenu key="sub4" title="회사부서관리">
