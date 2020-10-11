@@ -14,12 +14,12 @@ const Cus_Header = (props) => {
     const login = false;
     const handleSearch = (e) => {
         if(e!=""){
-            history.push(`/search?key=${e}`);
+            history.push(`/user/search?key=${e}`);
         }
         
     }
     const goMain=()=>{
-        history.push("/");
+        history.push("/user");
     }
     return (
         <>
@@ -33,8 +33,8 @@ const Cus_Header = (props) => {
                 <div className="gyun_menu_container">
                     <ul className="gyun_menus">
                         <a className="gyun_items" >장바구니</a>
-                        <a className="gyun_items" onClick={()=>history.push("/confirm")}>예약</a>
-                        <a className="gyun_items" onClick={()=>history.push("/accountinfo")}>마이페이지</a>
+                        <a className="gyun_items" onClick={()=>history.push("/user/confirm")}>예약</a>
+                        <a className="gyun_items" onClick={()=>history.push("/user/accountinfo")}>마이페이지</a>
                     </ul>
                 </div>
                 <div clasName="gyun_profile">
@@ -47,16 +47,16 @@ const Cus_Header = (props) => {
                 </div>
             </div >
             <div className="gyun_nav_container" >
-                <Card onClick={()=>{history.push("/search?key=렌트카")}} className="gyun_nav_rent" hoverable cover={<div style={{ fontSize: "30px" }}>🚗</div>} >
+                <Card onClick={()=>{history.push("/user/search?key=렌트카")}} className="gyun_nav_rent" hoverable cover={<div style={{ fontSize: "30px" }}>🚗</div>} >
                     <Meta style={{ fontSize: "30px" }} description="렌트카"></Meta>
                 </Card>
-                <Card onClick={()=>{history.push("/search?key=숙소")}} className="gyun_nav_lodg" hoverable cover={<div style={{ fontSize: "30px" }}>🏡</div>} >
+                <Card onClick={()=>{history.push("/user/search?key=숙소")}} className="gyun_nav_lodg" hoverable cover={<div style={{ fontSize: "30px" }}>🏡</div>} >
                     <Meta style={{ fontSize: "30px" }} description="숙소"></Meta>
                 </Card>
-                <Card onClick={()=>{history.push("/search?key=자전거")}} className="gyun_nav_byc" hoverable cover={<div style={{ fontSize: "30px" }}>🚲</div>} >
+                <Card onClick={()=>{history.push("/user/search?key=자전거")}} className="gyun_nav_byc" hoverable cover={<div style={{ fontSize: "30px" }}>🚲</div>} >
                     <Meta style={{ fontSize: "30px" }} description="자전거"></Meta>
                 </Card>
-                <Card  onClick={()=>{history.push("/search?key=오토바이")}} className="gyun_nav_moto" hoverable cover={<div style={{ fontSize: "30px" }}>🛵</div>} >
+                <Card  onClick={()=>{history.push("/user/search?key=오토바이")}} className="gyun_nav_moto" hoverable cover={<div style={{ fontSize: "30px" }}>🛵</div>} >
                     <Meta style={{ fontSize: "30px" }} description="오토바이"></Meta>
                 </Card>
             </div>

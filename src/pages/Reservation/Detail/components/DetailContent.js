@@ -93,7 +93,7 @@ const DetailContent = (props) => {
             </tbody>
           </table>
           <Button type="primary" style={style.CancelButtonStyle}>
-            <Link to="/cancel">취소하기</Link>
+            <Link to="/user/cancel">취소하기</Link>
           </Button>
         </div>
         <br />

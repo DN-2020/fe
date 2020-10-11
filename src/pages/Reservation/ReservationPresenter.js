@@ -73,7 +73,7 @@ const onSearch=(val)=> {
   console.log('search:', val);
 }
 const handleSubmit=(data)=>{
-  hiotory.push("/reservation/detail/1")
+  hiotory.push("/user/detail/1")
 }
   return (
     <div style={{marginLeft:350}}>
@@ -237,7 +237,7 @@ const handleSubmit=(data)=>{
       <Checkbox onChange={onChange}>Checkbox</Checkbox><br/></div>
       
       <br/>
-      <Button type="button" htmlType="submit">
+      <Button onClick={()=>{}} type="button" htmlType="submit">
           Cancel
         </Button>
         <Button onClick={()=>handleSubmit()} type="primary" htmlType="submit">

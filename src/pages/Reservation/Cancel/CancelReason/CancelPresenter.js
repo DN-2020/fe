@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Radio, Input } from 'antd';
 import { Layout, Menu, List, Button } from 'antd';
+import {useHistory} from "react-router-dom";
 const { Content } = Layout;
 
 const CancelPresenter = (props) => {
+  let history=useHistory();
   const [CurrentVal, setCurrentVal] = useState('');
 
   const data = [
@@ -31,7 +33,7 @@ const CancelPresenter = (props) => {
                 header={<div style={{ fontSize: '40px' }}>취소사유</div>}
                 footer={
                   <div>
-                    <Button type="primary">취소하기</Button>
+                    <Button onClick={()=>{history.push("/user/cancel/detail")}} type="primary">취소하기</Button>
                   </div>
                 }
                 dataSource={data}

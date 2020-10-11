@@ -14,7 +14,7 @@ const data = [
 const ProductDetailPresenter = (props) => {
   let history =useHistory();
   const handleReservation=(e)=>{
-    history.push(`/reservation/${e}`)
+    history.push(`/user/reservation/${e}`)
   }
   return (
     <div style={{marginLeft:100}}>

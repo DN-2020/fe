@@ -31,7 +31,7 @@ const Cus_Body = (props) => {
         textAlign: 'center',
     };
     const handleProduct=(e)=>{
-        history.push(`/productDetail/${e}`)
+        history.push(`/user/productDetail/${e}`)
     }
     const value=1;
     return (
