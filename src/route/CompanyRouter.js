@@ -36,14 +36,11 @@ const CompanyRouter = (props) => {
 						mode="inline"
 					>
 						<Menu.Item key="1" onClick={handleKey}>
-							대시보드
+							<Link to={{ pathname: '/company/dashboard' }}>대시보드</Link>
 						</Menu.Item>
 						<SubMenu key="sub1" title="상품 및 예약">
 							<Menu.Item key="2" value={'1'} onClick={handleKey}>
-								{' '}
-								<Link to={{ pathname: '/company/product' }}>
-									상품관리{' '}
-								</Link>{' '}
+								<Link to={{ pathname: '/company/product' }}>상품관리</Link>
 							</Menu.Item>
 							<Menu.Item key="3" onClick={handleKey}>
 								<Link to={{ pathname: '/company/reservation' }}>예약관리 </Link>
@@ -56,7 +53,7 @@ const CompanyRouter = (props) => {
 						</SubMenu>
 						<SubMenu key="sub3" title="고객관리">
 							<Menu.Item key="6" onClick={handleKey}>
-								고객관리
+								<Link to={{ pathname: '/company/customer' }}>고객관리</Link>
 							</Menu.Item>
 						</SubMenu>
 						<SubMenu key="sub4" title="회사 및 부서관리">
@@ -75,6 +72,7 @@ const CompanyRouter = (props) => {
 					</Menu>
 				</Sider>
 				<Layout className="site-layout">
+					<Route exact path="/company" component={DashBoardContainer}></Route>
 					<Route
 						exact
 						path="/company/product"
