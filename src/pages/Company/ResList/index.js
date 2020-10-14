@@ -1,11 +1,7 @@
-import ResUpdateContainer from "./ResUpdateContainer";
-import { connect } from "react-redux";
+import ResListContainer from './ResListContainer';
+import { connect } from 'react-redux';
 
 export default connect(
-  ({ }) => ({
-
-  }),
-  dispatch => ({
-
-  })
-)(ResUpdateContainer);
+	({}) => ({}),
+	(dispatch) => ({})
+)(ResListContainer);
