@@ -1,1 +1,0 @@
-export { default as SearchModal } from "./Search_Modal"

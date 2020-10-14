@@ -20,7 +20,7 @@ if (env === 'development') {
 
 // 하부 리듀서 합셔서 리듀서 생성
 const reducer = combineReducers({
-  item
+  item,
 });
 
 let store;
