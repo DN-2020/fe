@@ -1,59 +1,68 @@
 import React,{useState} from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch,Link } from 'react-router-dom';
+
 import { Layout, Menu, Breadcrumb } from 'antd';
-import { Main, Search,ProductDetail,Reservation,AccountInfoContainer,LoginContainer,RegisterContainer,DetailContainer , ConfirmContainer , CancelContainer,CancelDetailContainer,ConfirmCancelContainer} from '../pages';
-import Company_Res_Container from"../pages/Company/ReservationList"
+
+import {ProductListContainer,ProductDetailContainer,ProductUpdateContainer,ProductAddContainer} from"../pages"
+
 const { Header, Content, Sider,Footer } = Layout;
 const { SubMenu } = Menu;
 
 const CompanyRouter = (props) => {
-  const [collpase,setCollapse]= useState("");
+  const [key,setKey]= useState(props.key);
+  const handleKey=(e)=>{
+    console.log(e);
+    setKey(e.key);
+  }
   return(
   
     <>
       <Layout style={{ minHeight: '100vh' }}>
-        <Sider collapsible collapsed={collpase} onCollapse={setCollapse}>
+        <Sider >
           <div className="logo" />
-          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-            <Menu.Item key="1" >
-              Option 1
+          <Menu theme="dark" selectedKeys={key}  defaultSelectedKeys={['1']} mode="inline">
+            <Menu.Item key="1" onClick={handleKey}>
+              대시보드
             </Menu.Item>
-            <Menu.Item key="2" >
-              Option 2
+            <SubMenu key="sub1"  title="상품 및 예약">
+              <Menu.Item key="2" value={"1"} onClick={handleKey}> <Link to={{pathname:"/company/product"}}>상품관리 </Link> </Menu.Item>
+              <Menu.Item key="3" onClick={handleKey}><Link to={{pathname:"/company/reservation"}}>예약관리 </Link></Menu.Item>
+              <Menu.Item key="4" onClick={handleKey}>카테고리관리</Menu.Item>
+            </SubMenu>
+            <SubMenu key="sub2" title="리뷰 및 댓글 관리">
+              <Menu.Item key="5" onClick={handleKey}>리뷰 관리</Menu.Item>
+            </SubMenu>
+            <SubMenu key="sub3" title="고객관리">
+            <Menu.Item key="6" onClick={handleKey} >
+                  고객관리
             </Menu.Item>
-            <SubMenu key="sub1"  title="User">
-              <Menu.Item key="3">Tom</Menu.Item>
-              <Menu.Item key="4">Bill</Menu.Item>
-              <Menu.Item key="5">Alex</Menu.Item>
             </SubMenu>
-            <SubMenu key="sub2" title="Team">
-              <Menu.Item key="6">Team 1</Menu.Item>
-              <Menu.Item key="8">Team 2</Menu.Item>
+            <SubMenu key="sub4" title="회사 및 부서관리">
+            <Menu.Item key="7" onClick={handleKey} >
+                  고객관리
+            </Menu.Item>
+            <Menu.Item key="8" onClick={handleKey} >
+                  고객관리
+            </Menu.Item>
             </SubMenu>
-            <Menu.Item key="9" />
+            <SubMenu key="sub5" title="사원관리">
+            <Menu.Item key="9" onClick={handleKey} >
+                  사원관리
+            </Menu.Item>
+            </SubMenu>
           </Menu>
         </Sider>
         <Layout className="site-layout">
-          <Header className="site-layout-background" style={style.contentLayout} >
-              <h1>{1}</h1>
-          </Header>
-          <Content style={{textAlign:"left", margin: '0 16px' }}>
-            <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-              <Breadcrumb.Item>Bill</Breadcrumb.Item>
-            </Breadcrumb>
-            <div className="site-layout-background" style={{ background:"white", padding: 24, minHeight: 360 }}>
-            <Route exact path="/company" component={Company_Res_Container}></Route>  
-            </div>
-          </Content>
+          
+          <Route exact path="/company/product" component={ProductListContainer}></Route> 
+          <Route exact path="/company/product/:num" component={ProductDetailContainer} />
+          <Route exact path="/company/product/update/:num" component={ProductUpdateContainer}></Route>
+          <Route exact path="/company/new/product" component={ProductAddContainer}></Route>
+          
           <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
         </Layout>
       </Layout>       
   </>
 )};
-const style={
-  contentLayout:{
-    background:"#fff"
-  }
-}
+
 export default CompanyRouter;

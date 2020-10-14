@@ -1,4 +1,4 @@
-import ResListContainer from "./ResListContainer";
+import ProductAddContainer from "./ProductAddContainer";
 import { connect } from "react-redux";
 
 export default connect(
@@ -8,4 +8,4 @@ export default connect(
   dispatch => ({
 
   })
-)(ResListContainer);
+)(ProductAddContainer);
