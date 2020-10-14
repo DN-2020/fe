@@ -15,3 +15,5 @@ export { default as ProductDetailContainer } from './Company/ProductDetail';
 export { default as ProductUpdateContainer } from './Company/ProductUpdate';
 export { default as ProductAddContainer } from './Company/ProductAdd';
 export { default as ResListContainer } from './Company/ResList';
+export { default as ReviewListContainer } from './Company/ReviewList';
+export { default as ReviewDetailContainer } from './Company/ReviewDetail';

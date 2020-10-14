@@ -9,6 +9,8 @@ import {
 	ProductUpdateContainer,
 	ProductAddContainer,
 	ResListContainer,
+	ReviewListContainer,
+	ReviewDetailContainer,
 } from '../pages';
 
 const { Header, Content, Sider, Footer } = Layout;
@@ -44,13 +46,10 @@ const CompanyRouter = (props) => {
 							<Menu.Item key="3" onClick={handleKey}>
 								<Link to={{ pathname: '/company/reservation' }}>예약관리 </Link>
 							</Menu.Item>
-							<Menu.Item key="4" onClick={handleKey}>
-								카테고리관리
-							</Menu.Item>
 						</SubMenu>
 						<SubMenu key="sub2" title="리뷰 및 댓글 관리">
 							<Menu.Item key="5" onClick={handleKey}>
-								리뷰 관리
+								<Link to={{ pathname: '/company/review' }}>리뷰 관리</Link>
 							</Menu.Item>
 						</SubMenu>
 						<SubMenu key="sub3" title="고객관리">
@@ -99,6 +98,12 @@ const CompanyRouter = (props) => {
 						path="/company/reservation"
 						component={ResListContainer}
 					></Route>
+					<Route exact path="/company/review" component={ReviewListContainer} />
+					<Route
+						exact
+						path="/company/review/:num"
+						component={ReviewDetailContainer}
+					/>
 					<Footer style={{ textAlign: 'center' }}>
 						Ant Design ©2018 Created by Ant UED
 					</Footer>
