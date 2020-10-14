@@ -22,7 +22,14 @@ const DashboardPresenter = (props) => {
 			<div className="contentContainer" style={style.container}>
 				<Layout style={{ minHeight: '100vh' }}>
 					<Layout className="site-layout">
-						<Content style={{ margin: '0 16px' }}>
+						<Content
+							style={{
+								marginTop: '1%',
+								marginLeft: '1%',
+								marginRight: '1%',
+								background: 'white',
+							}}
+						>
 							<DashBoardContent />
 						</Content>
 					</Layout>

@@ -13,6 +13,14 @@ import {
 	ReviewDetailContainer,
 	DashBoardContainer,
 	CustomerContainer,
+	Company,
+	CompanyDetail,
+	CompanyApprove,
+	CompanyApproveDetail,
+	Employee,
+	EmployeeRegister,
+	Department,
+	DepartmentRegister,
 } from '../pages';
 
 const { Header, Content, Sider, Footer } = Layout;
@@ -58,15 +66,15 @@ const CompanyRouter = (props) => {
 						</SubMenu>
 						<SubMenu key="sub4" title="회사 및 부서관리">
 							<Menu.Item key="7" onClick={handleKey}>
-								회사관리
+								<Link to={{ pathname: '/company/companys' }}>회사관리</Link>
 							</Menu.Item>
 							<Menu.Item key="8" onClick={handleKey}>
-								부서관리
+								<Link to={{ pathname: '/company/department' }}> 부서관리</Link>
 							</Menu.Item>
 						</SubMenu>
 						<SubMenu key="sub5" title="사원관리">
 							<Menu.Item key="9" onClick={handleKey}>
-								사원관리
+								<Link to={{ pathname: '/company/employee' }}>사원관리</Link>
 							</Menu.Item>
 						</SubMenu>
 					</Menu>
@@ -109,6 +117,35 @@ const CompanyRouter = (props) => {
 						path="/company/dashboard"
 						component={DashBoardContainer}
 					/>
+					<Route exact path="/company/companys" component={Company} />
+					<Route
+						exact
+						path="/company/companyDetail"
+						component={CompanyDetail}
+					/>
+					<Route
+						exact
+						path="/company/companyApprove"
+						component={CompanyApprove}
+					/>
+					<Route
+						exact
+						path="/company/companyApproveDetail"
+						component={CompanyApproveDetail}
+					/>
+					<Route exact path="/company/employee" component={Employee} />
+					<Route
+						exact
+						path="/company/employeeRegister"
+						component={EmployeeRegister}
+					/>
+					<Route exact path="/company/department" component={Department} />
+					<Route
+						exact
+						path="/company/departmentRegister"
+						component={DepartmentRegister}
+					/>
+
 					<Route exact path="/company/customer" component={CustomerContainer} />
 					<Footer style={{ textAlign: 'center' }}>
 						Ant Design ©2018 Created by Ant UED

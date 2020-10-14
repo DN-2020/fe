@@ -102,7 +102,7 @@ const style = {
 	},
 	content: {
 		background: 'white',
-		width: '90%',
+		width: '98%',
 		margin: '1%',
 	},
 	calendarContainer: {
