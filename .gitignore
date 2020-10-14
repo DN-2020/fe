@@ -1,3 +1,4 @@
+
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
@@ -11,14 +12,6 @@
 # production
 /build
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-#vs code
-/.vscode
-=======
->>>>>>> df290dbea980908ba5cb4c57f211796bfc7640d0
-=======
->>>>>>> 4524d0f6a03ac83c3c0c808873acef8718704f98
 # misc
 .DS_Store
 .env.local
@@ -29,3 +22,5 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+node_modules
+

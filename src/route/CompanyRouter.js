@@ -104,6 +104,8 @@ const CompanyRouter = (props) => {
 						path="/company/review/:num"
 						component={ReviewDetailContainer}
 					/>
+					<Route exact path="/company/dashboard" component={DashBoardContainer} />
+    				<Route exact path="/company/customer" component={CustomerContainer} />
 					<Footer style={{ textAlign: 'center' }}>
 						Ant Design ©2018 Created by Ant UED
 					</Footer>

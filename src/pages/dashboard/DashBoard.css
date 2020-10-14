@@ -1,0 +1,61 @@
+#header {
+  height: 100px;
+  display: grid;
+  margin-right: 5%;
+  grid-template-columns: 20% 20% 20% 20% 25%;
+  grid-template-rows: 100px 100px 100px 100px 100px;
+}
+
+#aaa {
+  display: grid;
+  grid-template-columns: 80% 20%;
+}
+
+#nav {
+  background-color: #ffffff;
+  width: 200px;
+  height: 500px;
+  margin-left: 10%;
+  margin-top: 8%;
+  height: 800;
+}
+.CalendarStyle {
+  margin-right: 10%;
+  height: 500px;
+}
+#section {
+  border-style: groove;
+  margin-top: 2%;
+  text-align: left;
+  overflow: hidden;
+  height: 65%;
+}
+
+#header,
+#nav,
+#section,
+#footer {
+  text-align: center;
+}
+/* #header,
+#footer {
+  line-height: 700px;
+} */
+/* #nav,
+#section {
+  line-height: 250px;
+} */
+
+/* @media (max-width: 600px) {
+  #nav,
+  #section {
+    width: 100%;
+    height: auto;
+  }
+} */
+.ant-card-head {
+  height: 10px;
+}
+.ant-card-body {
+  height: 10px;
+}

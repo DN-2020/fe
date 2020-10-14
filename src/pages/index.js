@@ -17,3 +17,5 @@ export { default as ProductAddContainer } from './GyunCompany/ProductAdd';
 export { default as ResListContainer } from './GyunCompany/ResList';
 export { default as ReviewListContainer } from './GyunCompany/ReviewList';
 export { default as ReviewDetailContainer } from './GyunCompany/ReviewDetail';
+export { default as DashBoardContainer } from './dashboard';
+export { default as CustomerContainer } from './customer/';
