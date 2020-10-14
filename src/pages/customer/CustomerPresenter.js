@@ -3,12 +3,15 @@ import { Layout } from 'antd';
 import PropTypes from 'prop-types';
 import CustomerSider from '../dashboard/component/DashBoardSider';
 import CustomerContent from './component/CustomerContent';
-const { Content, Sider } = Layout;
+const { Content, Sider, Header } = Layout;
 
 const CustomerPresenter = (props) => {
   return (
     <>
-      <div>
+      <Header style={style.headerLayout}>
+        <h1>고객관리</h1>
+      </Header>
+      <div className="contentContainer" style={style.container}>
         <Layout style={{ minHeight: '100vh' }}>
           <Sider>
             <CustomerSider />
@@ -26,5 +29,17 @@ const CustomerPresenter = (props) => {
 };
 
 CustomerPresenter.propTypes = {};
+
+const style = {
+  headerLayout: {
+    background: '#fff',
+    textAlign: 'left',
+  },
+  container: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    flexWrap: 'wrap',
+  },
+};
 
 export default CustomerPresenter;

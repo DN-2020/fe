@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import '../DashBoard.css';
-import { Card } from 'antd';
+import { Card, Layout } from 'antd';
 import Calendar1 from './Calendar';
 import PropTypes from 'prop-types';
 const { Meta } = Card;
 const DashBoardContent = (props) => {
   const [calEvent, setcalEvent] = useState('');
-
   return (
     <>
-      <h2>대시보드</h2>
       <div id="header">
         <div>
           {' '}
