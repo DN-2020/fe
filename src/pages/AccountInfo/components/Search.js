@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Card, Button, Avatar } from 'antd';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Card, Button, Avatar } from 'antd'
 
-const { Meta } = Card;
+const { Meta } = Card
 
 const test = ({ data }) => {
   return (
@@ -16,7 +16,7 @@ const test = ({ data }) => {
           />
         }
       />
-      <div style={{ marginTop: '15%', marginLeft: '20%' }}>
+      <div style={{ marginTop: '15%' }}>
         이름 : {data.name}
         <br />
         <br />
@@ -25,9 +25,9 @@ const test = ({ data }) => {
         연락처 : {data.phonenum}
       </div>
     </>
-  );
-};
+  )
+}
 
-test.propTypes = {};
+test.propTypes = {}
 
-export default test;
+export default test

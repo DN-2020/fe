@@ -1,16 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import DetailContent from './components/DetailContent';
-import DetailHeader from './components/DetailHeader';
-import { Layout } from 'antd';
+import React from 'react'
+import PropTypes from 'prop-types'
+import DetailContent from './components/DetailContent'
+import DetailHeader from './components/DetailHeader'
+import { Layout } from 'antd'
 
-const { Header, Footer, Content } = Layout;
+const { Header, Footer, Content } = Layout
 
 const DetailPresenter = (props) => {
   return (
     <>
-      <Layout>
-        <div style={{ overflow: 'scroll' }}>
+      <Layout style={{ background: 'white', marginTop: '3%' }}>
+        <div>
           <Layout style={style}>
             <Content>
               <DetailContent />
@@ -19,15 +19,15 @@ const DetailPresenter = (props) => {
         </div>
       </Layout>
     </>
-  );
-};
+  )
+}
 
-DetailPresenter.propTypes = {};
+DetailPresenter.propTypes = {}
 
 const style = {
   marginLeft: '20%',
   marginRight: '20%',
   backgroundColor: '#ffffff',
   height: 900,
-};
-export default DetailPresenter;
+}
+export default DetailPresenter
