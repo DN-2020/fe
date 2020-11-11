@@ -10,4 +10,8 @@ export default {
     const url = `${backend_url}/item`;
     return await $http.get(url);
   },
+  // getreview: async () => {
+  //   const url = `${backend_url}/v1/review/list`;
+  //   return await $http.get(url);
+  // },
 };

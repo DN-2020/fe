@@ -28,7 +28,6 @@ export const bucket_url = GLOBAL[deployType]['bucket_url'];
 export { default as ApiManager } from './ApiManager';
 export { default as Notification } from './Notification';
 
-
 /**
  * 메시지
  */
@@ -171,6 +170,11 @@ export const setCookie = (name, value, callback = false) => {
   window.document.cookie = `${name}=${value}; path=/`;
   if (callback) callback();
 };
+
+// export const setCookie = (value, callback = false) => {
+//   window.document.cookie = `${value}`;
+//   if (callback) callback();
+// };
 
 /**
  * 쿠키삭제

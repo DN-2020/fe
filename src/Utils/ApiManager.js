@@ -1,7 +1,7 @@
 /**
  *
  */
-import { getCookie } from '../Utils';
+import { getCookie, setCookie } from '../Utils';
 export default class ApiManager {
   /**
    *
@@ -20,7 +20,7 @@ export default class ApiManager {
   setHeaders = (headers = {}) => {
     this.headers = {
       ...this.headers,
-      headers
+      headers,
     };
   };
 
@@ -32,10 +32,15 @@ export default class ApiManager {
       'Content-Type': 'application/json;charset=UTF-8',
       Accept: 'application/json',
       mode: 'no-cors',
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': true,
       // 'Content-Type': 'application/json;',
       // "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-      Authorization: `Bearer ${getCookie('fresh_a_token')}`
+      // Authorization: `Bearer ${getCookie('fresh_a_token')}`,
+      // Authorization: getCookie('accessToken'),
+      accessToken: getCookie('accessToken'),
+      // Authorization: `accessToken=${getCookie('accessToken')}`,
+      // Cookie: `accessToken=${getCookie('accessToken')}`,
+      // Cookie: getCookie('accessToken'),
     };
     return this.headers;
   };
@@ -61,17 +66,23 @@ export default class ApiManager {
   getRequest = async (url, method = 'GET', params) => {
     try {
       const headers = this.getHeaders();
+      const Cookie = { accessToken: getCookie('accessToken') };
+      console.log(Cookie);
+      console.log(headers);
       const queryString = this._jsonToQueryString(params);
       const response = await fetch(`${url}${queryString}`, {
         method,
-        headers
+        headers,
+        Cookie,
       });
       const responseJson = await response.json();
+      console.log('dd');
+      console.log(response);
       return responseJson;
     } catch (error) {
       return {
         code: 500,
-        message: error
+        message: error,
       };
     }
   };
@@ -86,7 +97,7 @@ export default class ApiManager {
       const response = await fetch(url, {
         method,
         headers,
-        ...(body && { body: bodyData })
+        ...(body && { body: bodyData }),
         // body: JSON.stringify(body)
       });
       const responseJson = await response.json();
@@ -95,7 +106,7 @@ export default class ApiManager {
     } catch (error) {
       return {
         code: 500,
-        message: error
+        message: error,
       };
     }
   };
@@ -113,12 +124,12 @@ export default class ApiManager {
           'Accept-Encoding': 'gzip, deflate',
           'cache-control': 'no-cache',
           'Access-Control-Allow-Origin': '*', // Required for CORS support to work
-          'Access-Control-Allow-Credentials': true // Required for cookies, authorization headers with HTTPS
+          'Access-Control-Allow-Credentials': true, // Required for cookies, authorization headers with HTTPS
         },
         processData: false,
         contentType: false,
         mimeType: 'multipart/form-data',
-        body: body
+        body: body,
       });
       //console.log(response);
       const responseJson = await response.json();
@@ -127,7 +138,7 @@ export default class ApiManager {
     } catch (error) {
       return {
         code: 500,
-        message: error
+        message: error,
       };
     }
   };
