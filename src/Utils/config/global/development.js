@@ -1,4 +1,4 @@
 export default {
-  backend_url: `http://localhost:8080/api/v1`,
-  bucket_url: ``,
-};
+  backend_url: `https://api.dnlab.kr`,
+  bucket_url: `https://store.dnlab.kr`,
+}
