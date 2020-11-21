@@ -30,7 +30,7 @@ const ResListPresenter = (props) => {
 
   const handleKey = (e) => {
     Axios.get(
-      `https://${backend_url}/v1/goods/${
+      `${backend_url}/v1/goods/${
         props.goods_seq[e.key.replace(/\item_/g, '')]
       }/reservation`,
       config
