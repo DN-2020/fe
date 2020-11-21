@@ -1,10 +1,11 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Card, Button, Avatar } from 'antd'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Card, Button, Avatar, Form } from 'antd';
 
-const { Meta } = Card
+const { Meta } = Card;
 
-const test = ({ data }) => {
+const test = (props) => {
+  console.log(props);
   return (
     <>
       <Meta
@@ -17,17 +18,26 @@ const test = ({ data }) => {
         }
       />
       <div style={{ marginTop: '15%' }}>
-        이름 : {data.name}
-        <br />
-        <br />
-        email : {data.email} <br />
-        <br />
-        연락처 : {data.phonenum}
+        <Form
+          labelCol={{
+            span: 8,
+          }}
+          wrapperCol={{
+            span: 13,
+          }}
+          layout="horizontal"
+        >
+          <Form.Item label="이름">{props.data.customer_nm}</Form.Item>
+          <Form.Item label="이메일">{props.data.customer_email}</Form.Item>
+          <Form.Item label="이메일">{props.data.customer_tel}</Form.Item>
+          <Form.Item label="주소">{props.data.address}</Form.Item>
+          <Form.Item label="상세주소">{props.data.DetailAddress}</Form.Item>
+        </Form>
       </div>
     </>
-  )
-}
+  );
+};
 
-test.propTypes = {}
+test.propTypes = {};
 
-export default test
+export default test;
