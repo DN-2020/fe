@@ -24,7 +24,6 @@ const ReviewListPresenter = (props) => {
   const [key, setKey] = useState('');
   const [reviews, setreviews] = useState([]);
   const handleKey = (e) => {
-    console.log('hello');
     Axios.get(
       `${backend_url}/v1/goods/${
         props.goods_seq[e.key.replace(/\item_/g, '')]
