@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Image,
   DatePicker,
@@ -13,7 +13,10 @@ import {
   Card,
   Dropdown,
 } from 'antd'
+import ReactHtmlParser from 'react-html-parser'
+import './Product.css'
 import { MinusCircleTwoTone, PlusCircleTwoTone } from '@ant-design/icons'
+import GyunProductAPI from '../../api/GyunProductAPI'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import { useHistory } from 'react-router-dom'
@@ -30,8 +33,16 @@ const ProductDetailPresenter = (props) => {
   const [kid, setKid] = useState(0)
   const [baby, setBaby] = useState(0)
   const [dropdown, setDropdown] = useState(false)
+  const [product, setProduct] = useState({})
   let history = useHistory()
-
+  useEffect(() => {
+    getProduct()
+  }, [])
+  const getProduct = async () => {
+    const { num } = props.props.match.params
+    const response = await GyunProductAPI.getProduct(num)
+    setProduct(response.data)
+  }
   const handleReservation = (e) => {
     history.push(`/user/reservation/${e}`)
   }
@@ -111,46 +122,22 @@ const ProductDetailPresenter = (props) => {
             textAlign: 'left',
           }}
         >
-          <div style={{ width: '80%', display: 'flex', flexWrap: 'wrap' }}>
+          <div
+            className="product_detail"
+            style={{ width: '80%', display: 'flex', flexWrap: 'wrap' }}
+          >
             <div style={{ width: '100%' }}>
-              <h1>굿즈네임</h1>
+              <h1>{product.goods_detail_nm}</h1>
             </div>
             <div style={{ width: '60%' }}>
-              <Rate disabled defaultValue={4}></Rate>
+              <Rate disabled value={product.goods_grade}></Rate>
             </div>
             <div style={{ width: '40%', flexDirection: 'flex-end' }}>
-              <p>450,000원</p>
+              <p>{product.goods_detail_price}원</p>
             </div>
           </div>
-          <div style={{ width: '80%', marginTop: '1%' }}>
-            <Image
-              width={800}
-              src="https://image.tport.io/gds_properties/56620/7fa08d41-65c5-4093-91cb-ffd9308f5733-1000.jpg"
-            />
-          </div>
-          <div style={{ width: '80%' }}>
-            <Image
-              width={800}
-              src="https://image.tport.io/gds_properties/56620/610d55df-fb6f-49a6-a615-a89c620ac334-1000.jpg"
-            />
-          </div>
-          <div style={{ width: '80%' }}>
-            <Image
-              width={800}
-              src="https://image.tport.io/gds_properties/56620/67f724d8-83e2-4328-b473-537922c40680-1000.jpg"
-            />
-          </div>
-          <div style={{ width: '80%' }}>
-            <Image
-              width={800}
-              src="https://image.tport.io/gds_properties/56620/c6d77931-7bce-4220-9da2-2c03c3fcb5f0-1000.jpg"
-            />
-          </div>
-          <div style={{ width: '80%' }}>
-            <Image
-              width={800}
-              src="https://image.tport.io/gds_properties/56620/c6d77931-7bce-4220-9da2-2c03c3fcb5f0-1000.jpg"
-            />
+          <div style={{ width: '80%', marginTop: '1%', textAlign: 'left' }}>
+            {ReactHtmlParser(product.goods_detail_expression)}
           </div>
         </div>
         <div

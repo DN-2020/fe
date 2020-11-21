@@ -1,9 +1,7 @@
 import React from 'react'
-import ProductDetailPresenter from "./ProductDetailPresenter"
+import ProductDetailPresenter from './ProductDetailPresenter'
 const ProductDetailContainer = (props) => {
-  return (
-    <ProductDetailPresenter></ProductDetailPresenter>
-  )
+  return <ProductDetailPresenter props={props}></ProductDetailPresenter>
 }
 
 export default ProductDetailContainer

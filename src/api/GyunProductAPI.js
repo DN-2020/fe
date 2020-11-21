@@ -31,4 +31,12 @@ export default {
     const url = `${backend_url}/v1/goods/${num}`
     return await $http.put(url, body)
   },
+  getProductCat: async (num) => {
+    const url = `${backend_url}/v1/search/${num}`
+    return await $http.get(url)
+  },
+  getSearch: async (search) => {
+    const url = `${backend_url}/v1/search?search=${search}`
+    return await $http.get(url)
+  },
 }

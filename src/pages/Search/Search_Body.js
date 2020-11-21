@@ -1,201 +1,81 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-
+import GyunProductAPI from '../../api/GyunProductAPI'
 import { Card, Rate } from 'antd'
 import Search_Modal from './component/Search_Modal'
+import { bucket_url } from '../../Utils'
+import { useHistory } from 'react-router-dom'
 const { Meta } = Card
 
 const Search_Body = (props) => {
+  let history = useHistory()
   const [data, setData] = useState([])
+  const [price, setPrice] = useState([0, 100])
+  const [location, setLocation] = useState('')
+  const [rate, setRate] = useState(0)
+  const [product, setProduct] = useState([])
   const [filterData, setFilterData] = useState([])
+  const [category, setCategory] = useState('')
+  const [key, setKey] = useState('')
   const [modal, setModal] = useState(false)
   const [filter, setFilter] = useState({})
   const [filterCat, setFilterCat] = useState('')
-  const onOK = (keyword, data) => {
+  useEffect(() => {
+    const search = props.props.props.location.search.split('=')
+    if (search[0] == '?category') {
+      getCategoryData(search[1])
+      setCategory(search[1])
+    } else {
+      setKey(search[1])
+      getSearch(search[1])
+    }
+  }, [])
+  const getCategoryData = async (category) => {
+    const response = await GyunProductAPI.getProductCat(category)
+    setProduct(response.data)
+    setData(response.data)
+  }
+  const getSearch = async (key) => {
+    const response = await GyunProductAPI.getSearch(key)
+    setProduct(response.data)
+    setData(response.data)
+  }
+  const onOK = (data, keyword) => {
     setModal(!modal)
-    console.log(data, keyword)
+    filtering(data, keyword)
   }
 
   const onCancle = () => {
     setModal(!modal)
   }
-  useEffect(() => {
-    setData([
-      {
-        id: 1,
-        title: 'abcdefg',
-        content: 'fsfdss',
-        image: 'logo192.png',
-        rate: '1',
-        date: '2020-09-18',
-        category: 'moto',
-        location: '부산광역시 부산진구 만리산로 100번길 32-8',
-      },
-      {
-        id: 2,
-        title: 'abcdefg',
-        content: 'fsdafs',
-        image: 'logo192.png',
-        rate: '1',
-        date: '2020-09-19',
-        category: 'moto',
-        location: '부산광역시 부산진구 만리산로 100번길 32-8',
-      },
-      {
-        id: 3,
-        title: 'abcdefg',
-        content: 'fsfs',
-        image: 'logo192.png',
-        rate: '2',
-        date: '2020-09-18',
-        category: 'moto',
-        location: '부산광역시 부산진구 만리산로 100번길 32-8',
-      },
-      {
-        id: 4,
-        title: 'abcdefg',
-        content: 'fsasfs',
-        image: 'logo192.png',
-        rate: '3',
-        date: '2020-09-12',
-        category: 'lodg',
-        location: '부산광역시 부산진구 만리산로 100번길 32-8',
-      },
-      {
-        id: 5,
-        title: 'abcdefg',
-        content: 'fssfs',
-        image: 'logo192.png',
-        rate: '4',
-        date: '2020-09-18',
-        category: 'moto',
-        location: '부산광역시 부산진구 만리산로 100번길 32-8',
-      },
-      {
-        id: 6,
-        title: 'abcdefg',
-        content: 'fsfs',
-        image: 'logo192.png',
-        rate: '1',
-        date: '2020-09-18',
-        category: 'moto',
-        location: '부산광역시 부산진구 만리산로 100번길 32-8',
-      },
-      {
-        id: 7,
-        title: 'abcdefg',
-        content: 'fsdafs',
-        image: 'logo192.png',
-        rate: '5',
-        date: '2020-09-18',
-        category: 'moto',
-        location: '부산광역시 부산진구 만리산로 100번길 32-8',
-      },
-      {
-        id: 8,
-        title: 'abcdefg',
-        content: 'fssdfs',
-        image: 'logo192.png',
-        rate: '2',
-        date: '2020-09-18',
-        category: 'moto',
-        location: '부산광역시 부산진구 만리산로 100번길 32-8',
-      },
-      {
-        id: 9,
-        title: 'abcdefg',
-        content: 'fsf1s',
-        image: 'logo192.png',
-        rate: '4',
-        date: '2020-09-18',
-        category: 'moto',
-        location: '부산광역시 부산진구 만리산로 100번길 32-8',
-      },
-      {
-        id: 10,
-        title: 'abcdefg',
-        content: 'fsfs',
-        image: 'logo192.png',
-        rate: '3',
-        date: '2020-09-18',
-        category: 'moto',
-        location: '부산광역시 부산진구 만리산로 100번길 32-8',
-      },
-      {
-        id: 11,
-        title: 'abcdefg',
-        content: 'fadsdfs',
-        image: 'logo192.png',
-        rate: '1',
-        date: '2020-09-18',
-        category: 'moto',
-        location: '부산광역시 부산진구 만리산로 100번길 32-8',
-      },
-      {
-        id: 12,
-        title: 'abcdefg',
-        content: 'fsfs',
-        image: 'logo192.png',
-        rate: '1',
-        date: '2020-09-18',
-        category: 'moto',
-        location: '부산광역시 부산진구 만리산로 100번길 32-8',
-      },
-      {
-        id: 13,
-        title: 'abcdefg',
-        content: 'fzcsfs',
-        image: 'logo192.png',
-        rate: '1',
-        date: '2020-09-18',
-        category: 'moto',
-        location: '부산광역시 부산진구 만리산로 100번길 32-8',
-      },
-      {
-        id: 14,
-        title: 'abcdefg',
-        content: 'fsfsdfs',
-        image: 'logo192.png',
-        rate: '1',
-        date: '2020-09-18',
-        category: 'moto',
-        location: '부산광역시 부산진구 만리산로 100번길 32-8',
-      },
-      {
-        id: 15,
-        title: 'abcdefg',
-        content: 'fs123fs',
-        image: 'logo192.png',
-        rate: '1',
-        date: '2020-09-18',
-        category: 'moto',
-        location: '부산광역시 부산진구 만리산로 100번길 32-8',
-      },
-      {
-        id: 16,
-        title: 'abcdefg',
-        content: 'f42sfs',
-        image: 'logo192.png',
-        rate: '1',
-        date: '2020-09-18',
-        category: 'moto',
-        location: '부산광역시 부산진구 만리산로 100번길 32-8',
-      },
-      {
-        id: 17,
-        title: 'abcdefg',
-        content: 'fs4fs',
-        image: 'logo192.png',
-        rate: '1',
-        date: '2020-09-18',
-        category: 'moto',
-        location: '부산광역시 부산진구 만리산로 100번길 32-8',
-      },
-    ])
-    setFilterData(data)
-    return () => {}
-  }, [])
+  const filtering = (data, keyword) => {
+    switch (keyword) {
+      case 'price':
+        setPrice(data)
+        break
+      case 'rate':
+        setRate(data)
+        break
+      case 'location':
+        setLocation(data)
+        break
+    }
 
+    const filter = product.filter((value, key) => {
+      if (
+        value.goods_grade >= rate &&
+        value.goods_address.indexOf(location) != -1 &&
+        value.goods_detail_price >= price[0] * 10000 &&
+        value.goods_detail_price <= price[1] * 10000
+      ) {
+        return value
+      }
+    })
+    setData(filter)
+  }
+  const goDetail = (e) => {
+    history.push(`/user/productDetail/${e}`)
+  }
   return (
     <div
       className="search_body_container"
@@ -209,20 +89,9 @@ const Search_Body = (props) => {
       }}
     >
       <h2 style={{ textAlign: 'left' }}>
-        검색어:{JSON.stringify(props.props.props.history.location.search).slice('6', -1)}
+        {category.length > 0 ? `카테고리:${category}` : `검색어:${key}`}
       </h2>
       <div className="search_body_nav" style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <div
-          className="search_option_date search_btn"
-          style={{ background: '#008CBA', color: 'white', width: '8%', border: '1px solid white' }}
-          onClick={() => {
-            setFilterCat('date')
-            setModal(!modal)
-            console.log(!modal)
-          }}
-        >
-          날짜
-        </div>
         <div
           className="search_option_price search_btn"
           style={{ background: '#008CBA', color: 'white', width: '8%', border: '1px solid white' }}
@@ -275,19 +144,31 @@ const Search_Body = (props) => {
           alignContent: 'stretch',
         }}
       >
-        {data.map((element) => {
-          console.log(element)
-          return (
-            <Card
-              style={{ width: '20%', height: '250px', margin: 0 }}
-              hoverable
-              cover={<img style={{ height: '100px' }} src={element.image}></img>}
-            >
-              <Meta title={element.title} description={element.location} />
-              <Rate disabled defaultValue={element.rate}></Rate>
-            </Card>
-          )
-        })}
+        {data.length > 0
+          ? data.map((element) => {
+              return (
+                <Card
+                  style={{ width: '20%', height: '250px', margin: 0 }}
+                  hoverable
+                  onClick={() => {
+                    goDetail(element.goods_detail_seq)
+                  }}
+                  cover={
+                    <img
+                      style={{ height: '100px' }}
+                      src={`${bucket_url}/${element.goods_image_path}`}
+                    ></img>
+                  }
+                >
+                  <Meta
+                    title={element.goods_detail_nm}
+                    description={element.goods_detail_address}
+                  />
+                  <Rate disabled defaultValue={element.goods_grade}></Rate>
+                </Card>
+              )
+            })
+          : ''}
       </div>
       <Search_Modal
         title={filterCat}
