@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { INITIAL_EVENTS } from '../CalendarEvent';
@@ -7,14 +7,26 @@ import './Calendar.css';
 /*
 npm install @fullcalendar/react @fullcalendar/daygrid
 */
-const Calendar = ({ setcalEvent }) => {
+const Calendar = (props) => {
+  console.log(props);
+  // console.log(states);
   const handleEventClick = (clickInfo) => {
     console.log(clickInfo.event.extendedProps.content);
     console.log(clickInfo.event.start);
-    console.log(clickInfo.event.end);
-    setcalEvent(clickInfo.event.extendedProps.content);
+    console.log(clickInfo.event.extendedProps.reservation_nm);
+    console.log(clickInfo.event.extendedProps.approval_method);
+    console.log(clickInfo.event.extendedProps.reservation_total_price);
+
+    // props.setcalEvent(clickInfo.event.extendedProps.content);
+    props.setcontent(clickInfo.event.extendedProps.content);
+    props.setreservation_nm(clickInfo.event.extendedProps.reservation_nm);
+    props.setapproval_method(clickInfo.event.extendedProps.approval_method);
+    props.setreservation_total_price(
+      clickInfo.event.extendedProps.reservation_total_price
+    );
   };
 
+  console.log(props);
   return (
     <div>
       <div className="demo-app" style={{ scrollbarWidth: 'none' }}>
@@ -29,7 +41,12 @@ const Calendar = ({ setcalEvent }) => {
           initialView="dayGridMonth"
           selectable={true}
           selectMirror={true}
-          initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
+          events={props.props.reData}
+          // eventSourceSuccess={props.props}
+
+          // initialEvents={props.props} // alternatively, use the `events` setting to fetch from a feed
+          // initialEvents={INITIAL_EVENTS}
+          // initialEvents= {aaa}
           eventContent={renderEventContent} // custom render function
           eventClick={handleEventClick}
         />
@@ -39,6 +56,7 @@ const Calendar = ({ setcalEvent }) => {
 };
 
 const renderEventContent = (eventInfo) => {
+  console.log(eventInfo);
   return (
     <>
       {/**<ul>
