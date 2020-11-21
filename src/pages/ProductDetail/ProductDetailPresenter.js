@@ -20,6 +20,7 @@ import GyunProductAPI from '../../api/GyunProductAPI'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import { useHistory } from 'react-router-dom'
+import GyunReviewAPI from '../../api/GyunReviewAPI'
 const { RangePicker } = DatePicker
 const { Meta } = Card
 const data = [
@@ -34,14 +35,21 @@ const ProductDetailPresenter = (props) => {
   const [baby, setBaby] = useState(0)
   const [dropdown, setDropdown] = useState(false)
   const [product, setProduct] = useState({})
+  const [review, setReview] = useState([])
   let history = useHistory()
   useEffect(() => {
-    getProduct()
-  }, [])
-  const getProduct = async () => {
     const { num } = props.props.match.params
+    getProduct(num)
+    getReview(num)
+  }, [])
+  const getProduct = async (num) => {
     const response = await GyunProductAPI.getProduct(num)
+
     setProduct(response.data)
+  }
+  const getReview = async (num) => {
+    const response = await GyunReviewAPI.getReview(num)
+    setReview(response.data)
   }
   const handleReservation = (e) => {
     history.push(`/user/reservation/${e}`)
@@ -194,14 +202,48 @@ const ProductDetailPresenter = (props) => {
           </div>
         </div>
       </div>
-      <h2>Review</h2>
+      <h2 style={{ textAlign: 'left', marginLeft: '5%' }}>Review</h2>
       <List
         size="small"
-        bordered
-        dataSource={data}
+        dataSource={review}
         renderItem={(item) => (
-          <List.Item>
-            <a>{item}</a>
+          <List.Item
+            style={{
+              display: 'flex',
+              width: '60%',
+              borderBottom: '0.1px solid lgihtgray',
+              borderTop: '0.1px solid lgihtgray',
+            }}
+          >
+            <div
+              style={{
+                marginLeft: '1%',
+                width: '10%',
+                display: 'flex',
+                borderRight: '0.1px solid lightgray',
+              }}
+            >
+              <div style={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
+                <div style={{ height: '50%', marginTop: '3%', textAlign: 'left' }}>
+                  {item.reservation_nm}
+                </div>
+
+                <div style={{ height: '50%', marginTop: '3%', textAlign: 'left' }}>
+                  <a>report</a>
+                </div>
+              </div>
+            </div>
+            <div style={{ width: '50%', display: 'flex' }}>
+              <div style={{ width: '30%' }}>{item.review_title}</div>
+              <div style={{ width: '70%' }}>
+                <Rate disabled value={item.review_grade}></Rate>
+              </div>
+            </div>
+            <div style={{ width: '30%' }}>
+              <div style={{ height: '30%', textAlign: 'left' }}>
+                {item.review_createAt.slice(0, 10)}
+              </div>
+            </div>
           </List.Item>
         )}
       />{' '}
