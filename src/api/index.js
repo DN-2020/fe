@@ -15,3 +15,4 @@ export { default as MyInfo } from './MyInfo';
 export { default as User_Reservation } from './User_Reservation';
 export { default as User_ReviewList } from './User_ReviewList';
 export { default as User_refund } from './User_refund';
+export { default as UserInfo_Revise } from './UserInfo_Revise';

@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Layout, Card, Button, Tabs, Modal, Space, Row, Col } from 'antd';
+import { Layout, Card, Button, Tabs, Modal, Row, Col, message } from 'antd';
 import Search from './components/Search';
 import Modify from './components/Modify';
-import AccountInfoSider from './components/AccountInfoSider';
 import { bucket_url } from '../../Utils';
+import InfiniteScroll from 'react-infinite-scroller';
 //npm install --save @ant-design/icons
 import { ConsoleSqlOutlined, SettingOutlined } from '@ant-design/icons';
 const { Header, Footer, Sider, Content } = Layout;
 const { TabPane } = Tabs;
-let url = `https://store.dnlab.kr.s3.ap-northeast-2.amazonaws.com/`;
 const AccountInfoPresenter = (props) => {
   console.log(props.UserRefund);
   const [page, setPage] = useState(true);
   const [key, setKey] = useState(1);
   const [visible, setVisible] = useState(false);
-
+  const [loading, setLoading] = useState(false);
+  const [hasMore, sethasMore] = useState(true);
   const showModal = () => {
     setVisible(true);
   };
@@ -41,12 +41,15 @@ const AccountInfoPresenter = (props) => {
     username: '홍길동',
     price: '30,000',
   };
-
-  // <Card style={{ width: '30%' }} cover={<img src="moto1.png"></img>}></Card>
-  // <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-  //   <h1 style={{ textAlign: 'left' }}>포르쉐 카이엔</h1>
-  //   <p>2020-10-17~2020-10-25 (7박8일)</p>
-  // </div>
+  const handleIfiniteOnLoad = () => {
+    setLoading(true);
+    if (datas.length > 5) {
+      message.warning('ddddddd');
+      setLoading(false);
+      sethasMore(false);
+    }
+    return;
+  };
 
   const datas = props.UserInfo.map((e) => {
     return (
@@ -62,7 +65,6 @@ const AccountInfoPresenter = (props) => {
           <Col span={6} pull={18}>
             <br />
             <Card
-              style={{ width: '150%', height: '5%' }}
               cover={<img src={`${bucket_url}/${e.goods_image_path}`}></img>}
             ></Card>
           </Col>
@@ -70,6 +72,7 @@ const AccountInfoPresenter = (props) => {
       </>
     );
   });
+
   const RefundData = props.UserRefund.map((e) => {
     return (
       <>
@@ -106,6 +109,7 @@ const AccountInfoPresenter = (props) => {
         >
           <h1 style={{ textAlign: 'left' }}>{e.reservation_goods_detail}</h1>
           <p>{e.review_content}</p>
+          <hr />
         </div>
       </>
     );
@@ -203,7 +207,7 @@ AccountInfoPresenter.propTypes = {};
 const style = {
   card: {
     height: '550px',
-    borderColor: 'black',
+    // borderColor: 'black',
   },
 };
 

@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Card, Button, Avatar, Input, Form } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+import { UserInfo_Revise } from '../../../api';
+import { get } from 'js-cookie';
+import { ApiManager } from '../../../Utils';
 import Axios from 'axios';
+
+const $http = new ApiManager();
 
 const { Meta } = Card;
 
@@ -15,16 +20,43 @@ const Modify = (props) => {
   const [detailAddress, setDetailAddress] = useState(
     props.props.props.DetailAddress
   );
-  const MyInfoChange = () => {
-    Axios.put();
+
+  let config = {
+    headers: {
+      'Access-Control-Allow-Origin': true,
+      // 'Set-Cookie': Axios.defaults.headers.common['Set-Cookie'],
+      Authorization: get('accessToken'),
+    },
+  };
+  const body = [
+    { customer_email: email },
+    { customer_nm: name },
+    { customer_tel: phonnumber },
+    { customer_address: address },
+    { customer_detail_address: detailAddress },
+    { customer_post: '33245' },
+  ];
+  const MyInfoChange = (e) => {
+    console.log(name);
+    console.log(email);
+    console.log(phonnumber);
+    console.log(address);
+    console.log(detailAddress);
+    UserInfo_Revise.UserRevise().then((e) => console.log(e));
+    // UserInfo_Revise.UserRevise(
+    //   'https://api.dnlab.kr/v1/user/info',
+    //   body
+    // ).then((e) => console.log(e));
+    // Axios.put('https://api.dnlab.kr/v1/user/info', body, config).then((e) =>
+    //   console.log(e)
+    // );
+    //   $http
+    //     .put('https://api.dnlab.kr/v1/user/info', body)
+    //     .then((e) => console.log(e));
   };
   const nameChange = (e) => {
-    props.props.props.setCustomer_email(e.currentTarget.value);
-    console.log(e.currentTarget.value);
-    console.log(email);
-    console.log(props.props.props.customer_email);
+    setName(e.currentTarget.value);
   };
-  console.log(props.props.props.customer_email);
   const emailChange = (e) => {
     setEmail(e.currentTarget.value);
   };
