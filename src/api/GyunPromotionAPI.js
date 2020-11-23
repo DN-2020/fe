@@ -11,4 +11,8 @@ export default {
 
     return await $http.get(url)
   },
+  getPromotionDetail: async (num) => {
+    const url = `${backend_url}/v1/promotion/${num}`
+    return await $http.get(url)
+  },
 }

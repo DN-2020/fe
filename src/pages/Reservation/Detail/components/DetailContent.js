@@ -1,109 +1,122 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Button } from 'antd';
-import { Steps, message } from 'antd';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
+import { Button } from 'antd'
+import { Steps, message } from 'antd'
+import { Link } from 'react-router-dom'
+import { GyunReservation } from '../../../../api'
+import GyunLoginAPI from '../../../../api/GyunLoginAPI'
 
-const { Step } = Steps;
+const { Step } = Steps
 
 const DetailContent = (props) => {
+  const [reservation, setReservation] = useState(null)
+  const [user, setUser] = useState(null)
+  const { num } = props.props.props.location.state
+  useEffect(() => {
+    console.log(props)
+    getReservation()
+    getUser()
+  }, [])
+  const getUser = async () => {
+    const response = await GyunLoginAPI.getUser()
+    setUser(response.data)
+  }
+  const getReservation = async () => {
+    const response = await GyunReservation.getReservation(num)
+    console.log(response.data)
+    setReservation(response.data)
+  }
   return (
     <>
-      <div>
-        <div style={style.StepStyle}>
-          <Steps size="small" current={1}>
-            <Step title="예약중" />
-            <Step title="예약완료" />
-          </Steps>
-        </div>
+      {reservation != null && user != null ? (
+        <div>
+          <div style={style.StepStyle}>
+            <Steps size="small" current={1}>
+              <Step title="예약중" />
+              <Step title="예약완료" />
+            </Steps>
+          </div>
 
-        <Step />
-        <div align="center">
-          <div>
-            <table border="1" style={style.ReservationTableStyle}>
+          <Step />
+          <div align="center">
+            <div>
+              <table border="1" style={style.ReservationTableStyle}>
+                <tbody align="center">
+                  <tr>
+                    <td colSpan="4" style={{ fontSize: '20pt' }}>
+                      예약상세
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      예약 <br />
+                      번호
+                    </td>
+                    <td colSpan="3" style={{ height: '30%' }}>
+                      {reservation.reservation_seq}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      체크 <br /> 인
+                    </td>
+                    <td>{reservation.reservation_st}</td>
+                    <td>
+                      체크 <br /> 아웃
+                    </td>
+                    <td>{reservation.reservation_end}</td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      구매자 <br />
+                      정보
+                    </td>
+                    <td colSpan="3">
+                      이메일 :{user.customer_email} <br /> 한글이름 :{reservation.reservation_nm}{' '}
+                      <br />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <table border="1" style={style.PriceTable}>
               <tbody align="center">
                 <tr>
-                  <td colSpan="4" style={{ fontSize: '20pt' }}>
-                    예약상세
+                  <td colSpan="3" style={{ fontSize: '20pt' }}>
+                    결제 금액 <Button style={style.ReceiptButtonStyle}>영수증</Button>
                   </td>
                 </tr>
                 <tr>
+                  <td>결제 일</td>
+                  <td>{reservation.reservation_createAt.slice(0, 18)}</td>
                   <td>
-                    예약 <br />
-                    번호
-                  </td>
-                  <td colSpan="3" style={{ height: '30%' }}>
-                    123456
+                    여행금액 {reservation.goods_detail_price}
+                    <br /> 할인금액 2000
                   </td>
                 </tr>
                 <tr>
-                  <td>
-                    체크 <br /> 인
-                  </td>
-                  <td>2020-08-07 13:30</td>
-                  <td>
-                    체크 <br /> 아웃
-                  </td>
-                  <td>2020-08-08 11:00</td>
-                </tr>
-                <tr>
-                  <td>옵션</td>
-                  <td colSpan="3">굿즈 네임 디테일</td>
-                </tr>
-                <tr>
-                  <td>
-                    여행 <br /> 컨셉
-                  </td>
-                  <td colSpan="3">연인과 함께 하는</td>
-                </tr>
-                <tr>
-                  <td>
-                    구매자 <br />
-                    정보
-                  </td>
-                  <td colSpan="3">
-                    이메일 : abc@naver.com <br /> 영문이름: hong <br /> 한글이름
-                    : 홍길동 <br /> 성별 : 남 <br /> 숙소도착 : 13:40
-                  </td>
+                  <td>결제 수단</td>
+                  <td>{reservation.approval_method}</td>
+                  <td>결제 금액 {reservation.approval_total_price}</td>
                 </tr>
               </tbody>
             </table>
+            <Button type="primary" style={style.CancelButtonStyle}>
+              <Link to="/user/cancel">취소하기</Link>
+            </Button>
           </div>
-          <table border="1" style={style.PriceTable}>
-            <tbody align="center">
-              <tr>
-                <td colSpan="3" style={{ fontSize: '20pt' }}>
-                  결제 금액{' '}
-                  <Button style={style.ReceiptButtonStyle}>영수증</Button>
-                </td>
-              </tr>
-              <tr>
-                <td>결제 일</td>
-                <td>2020-07-25 21:35</td>
-                <td>
-                  여행금액 3200
-                  <br /> 할인금액 2000
-                </td>
-              </tr>
-              <tr>
-                <td>결제 수단</td>
-                <td>토스</td>
-                <td>결제 금액 30000</td>
-              </tr>
-            </tbody>
-          </table>
-          <Button type="primary" style={style.CancelButtonStyle}>
-            <Link to="/user/cancel">취소하기</Link>
-          </Button>
+          <br />
+          <br />
         </div>
-        <br />
-        <br />
-      </div>
+      ) : (
+        ''
+      )}
     </>
-  );
-};
+  )
+}
 
-DetailContent.propTypes = {};
+DetailContent.propTypes = {}
 
 const style = {
   OutlineStyle: {
@@ -137,6 +150,6 @@ const style = {
     width: 400,
     height: 200,
   },
-};
+}
 
-export default DetailContent;
+export default DetailContent
