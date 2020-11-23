@@ -13,7 +13,7 @@ const DetailPresenter = (props) => {
         <div>
           <Layout style={style}>
             <Content>
-              <DetailContent props={props} />
+              <DetailContent />
             </Content>
           </Layout>
         </div>
