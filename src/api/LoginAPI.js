@@ -63,7 +63,7 @@ export default {
     // http://192.168.64.94:8080/v1/user/info
     var aa = await $http
       .post(url, body)
-      // .then((response) => console.log(response.data));
+      // .then((response) => console.log(response))
       .then((res) => setCookie('accessToken', res.data.accessToken));
 
     return aa;
