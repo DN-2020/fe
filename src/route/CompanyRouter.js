@@ -19,8 +19,11 @@ import {
 	CompanyApproveDetail,
 	Employee,
 	EmployeeRegister,
+	EmployeeDetail,
 	Department,
 	DepartmentRegister,
+	DepartmentDetail
+
 } from '../pages';
 
 const { Header, Content, Sider, Footer } = Layout;
@@ -139,11 +142,21 @@ const CompanyRouter = (props) => {
 						path="/company/employeeRegister"
 						component={EmployeeRegister}
 					/>
+					<Route
+						exact
+						path="/company/employeeDetail/:num"
+						component={EmployeeDetail}
+					/>
 					<Route exact path="/company/department" component={Department} />
 					<Route
 						exact
 						path="/company/departmentRegister"
 						component={DepartmentRegister}
+					/>
+					<Route
+						exact
+						path="/company/departmentDetail/:num"
+						component={DepartmentDetail}
 					/>
 
 					<Route exact path="/company/customer" component={CustomerContainer} />
