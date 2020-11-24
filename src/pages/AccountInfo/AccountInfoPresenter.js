@@ -1,6 +1,19 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Layout, Card, Button, Tabs, Modal, Row, Col, message } from 'antd';
+import {
+  Layout,
+  Card,
+  Button,
+  Tabs,
+  Modal,
+  Row,
+  Col,
+  message,
+  Divider,
+  List,
+  Avatar,
+  Rate,
+} from 'antd';
 import Search from './components/Search';
 import Modify from './components/Modify';
 import { bucket_url } from '../../Utils';
@@ -10,13 +23,14 @@ import { ConsoleSqlOutlined, SettingOutlined } from '@ant-design/icons';
 const { Header, Footer, Sider, Content } = Layout;
 const { TabPane } = Tabs;
 const AccountInfoPresenter = (props) => {
-  console.log(props.UserRefund);
   const [page, setPage] = useState(true);
   const [key, setKey] = useState(1);
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [hasMore, sethasMore] = useState(true);
-  const showModal = () => {
+  const [modalData, setModalData] = useState([]);
+  const showModal = (e) => {
+    console.log(e);
     setVisible(true);
   };
 
@@ -41,61 +55,6 @@ const AccountInfoPresenter = (props) => {
     username: '홍길동',
     price: '30,000',
   };
-  const handleIfiniteOnLoad = () => {
-    setLoading(true);
-    if (datas.length > 5) {
-      message.warning('ddddddd');
-      setLoading(false);
-      sethasMore(false);
-    }
-    return;
-  };
-
-  const datas = props.UserInfo.map((e) => {
-    return (
-      <>
-        <Row>
-          <Col span={18} push={6}>
-            <br />
-            <h1>{e.goods_detail_nm}</h1>
-            <p>
-              {e.reservation_st} ~ {e.reservation_end}
-            </p>
-          </Col>
-          <Col span={6} pull={18}>
-            <br />
-            <Card
-              cover={<img src={`${bucket_url}/${e.goods_image_path}`}></img>}
-            ></Card>
-          </Col>
-        </Row>
-      </>
-    );
-  });
-
-  const RefundData = props.UserRefund.map((e) => {
-    return (
-      <>
-        <Row>
-          <Col span={18} push={6}>
-            <br />
-            <h1>{e.goods_detail_nm}</h1>
-            <p>사유:{e.refund_reason}</p>
-            <p>
-              {e.reservation_st} ~ {e.reservation_end}
-            </p>
-          </Col>
-          <Col span={6} pull={18}>
-            <br />
-            <Card
-              style={{ width: '150%', height: '5%' }}
-              cover={<img src={`${bucket_url}/${e.goods_image_path}`}></img>}
-            ></Card>
-          </Col>
-        </Row>
-      </>
-    );
-  });
 
   const reviewdatas = props.UserReview.map((e) => {
     return (
@@ -109,7 +68,7 @@ const AccountInfoPresenter = (props) => {
         >
           <h1 style={{ textAlign: 'left' }}>{e.reservation_goods_detail}</h1>
           <p>{e.review_content}</p>
-          <hr />
+          <Divider plain></Divider>
         </div>
       </>
     );
@@ -159,43 +118,119 @@ const AccountInfoPresenter = (props) => {
             style={{ width: '100%' }}
           >
             <TabPane tab="예약내역" key="1">
-              <div
-                style={{
-                  display: 'flex',
-                  width: '100%',
-                }}
-                // onClick={() => showModal()}
-                onClick={(e) => console.log(e)}
-              >
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                  }}
-                >
-                  {datas}
-                </div>
-              </div>
+              <List
+                pagination={true}
+                className="demo-loadmore-list"
+                itemLayout="horizontal"
+                dataSource={props.UserInfo.map((e) => e)}
+                renderItem={(e) => (
+                  <List.Item multipleLine>
+                    <div
+                      onClick={() => {
+                        console.log(e);
+                        setModalData(e);
+                        setVisible(true);
+                      }}
+                    >
+                      {
+                        <img
+                          width={272}
+                          alt="logo"
+                          src={`${bucket_url}/${e.goods_image_path}`}
+                        />
+                      }
+                    </div>
+                    <List.Item.Meta
+                      title={e.goods_detail_nm}
+                      description={`${e.reservation_st} ~ ${e.reservation_end}`}
+                    />
+                    <br />
+                    <br />
+                  </List.Item>
+                )}
+              />
             </TabPane>
             <TabPane tab="리뷰내역" key="2">
-              {reviewdatas}
+              <List
+                pagination={true}
+                size="small"
+                // header={<div> 리뷰내역</div>}
+                dataSource={props.UserReview.map((e) => e)}
+                renderItem={(e) => (
+                  <List.Item>
+                    <p>{e.reservation_goods_detail}</p>
+                    <p>{e.review_content}</p>
+                    <p>
+                      <Rate disabled defaultValue={e.review_grade} />
+                    </p>
+                  </List.Item>
+                )}
+              />
             </TabPane>
-            <TabPane tab="취소" key="3">
-              {RefundData}
+            <TabPane tab="취소내역" key="3">
+              <List
+                pagination={true}
+                className="demo-loadmore-list"
+                itemLayout="horizontal"
+                dataSource={props.UserRefund.map((e) => e)}
+                renderItem={(e) => (
+                  <List.Item>
+                    {
+                      <div
+                        onClick={() => {
+                          console.log(e);
+                          setModalData(e);
+                          setVisible(true);
+                        }}
+                      >
+                        <img
+                          width={272}
+                          // alt="logo"
+                          src={`${bucket_url}/${e.goods_image_path}`}
+                        />
+                      </div>
+                    }
+                    <List.Item.Meta
+                      title={e.goods_detail_nm}
+                      description={`사유: ${e.refund_reason}`}
+                    />
+                    <br />
+                    <br />
+                  </List.Item>
+                )}
+              />
             </TabPane>
           </Tabs>
         </div>
         <Modal
-          title="예약내역"
+          // title="예약내역"
+          width={700}
           visible={visible}
           onOk={handleOk}
           onCancel={handleCancel}
         >
-          <p>{mdata.name}</p>
-          <p>체크아웃 :{mdata.checkout}</p>
-          <p>이름: {mdata.username}</p>
-          <p>결제금액 :{mdata.price}</p>
+          {console.log(modalData)}
+          <img
+            width={500}
+            style={{ marginLeft: '10%', marginBottom: '5%' }}
+            alt="logo"
+            src={`${bucket_url}/${modalData.goods_image_path}`}
+          />
+          <Divider />
+          <p>상품명 : {modalData.reservation_goods_detail}</p>
+          <Divider />
+          <p>결제 : {modalData.approval_method}</p>
+          <Divider />
+          <p>금액 : {modalData.reservation_total_price}</p>
+          <Divider />
+          <p>내용 : {modalData.goods_detail_expression}</p>
+          <Divider />
+          <p>주소 : {modalData.goods_address}</p>
+          <Divider />
+          <p>
+            기간 :{' '}
+            {`${modalData.reservation_st} ~ ${modalData.reservation_end}`}
+          </p>
         </Modal>
       </div>
     </>

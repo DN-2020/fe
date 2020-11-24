@@ -2,14 +2,14 @@ import { reviewAPI } from '.';
 import { backend_url } from '../Utils';
 import { ApiManager } from '../Utils';
 const $http = new ApiManager();
-const body = [
-  { customer_email: 'email' },
-  { customer_nm: 'name' },
-  { customer_tel: 'phonnumber' },
-  { customer_address: 'address' },
-  { customer_detail_address: 'detailAddress' },
-  { customer_post: '33245' },
-];
+const body = {
+  customer_email: 'email',
+  customer_nm: 'name',
+  customer_tel: 'phonnumber',
+  customer_address: 'address',
+  customer_detail_address: 'detailAddress',
+  customer_post: '33245',
+};
 export default {
   /**
    * @title findAll
@@ -24,6 +24,6 @@ export default {
 
     // const url = `http://192.168.64.94:8080/v1/goodsdetail/5/review`;
 
-    return await $http.put(url, body);
+    return await $http.post(url, body);
   },
 };

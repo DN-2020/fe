@@ -17,8 +17,8 @@ const DashboardContainer = () => {
   const [Count, setCount] = useState();
   const [scheduled, setScheduled] = useState();
   const [complete, setComplete] = useState();
+  const [company_nm, setCompany_nm] = useState();
   useEffect(() => {
-    // getUser()
     Admin_Reservation.getReservation().then((e) => {
       arr1 = e.data.map((e) => {
         return {
@@ -28,8 +28,6 @@ const DashboardContainer = () => {
           start: e.reservation_st,
           end: e.reservation_end,
           reservation_nm: e.reservation_nm,
-          // goods_detail_price: e.goods_detail_price,
-          // approval_total_price: e.approval_total_price,
           reservation_total_price: e.reservation_total_price,
           approval_method: e.approval_method,
         };
@@ -39,6 +37,7 @@ const DashboardContainer = () => {
       setCount(e.data[0].count);
       setScheduled(e.data[0].scheduled);
       setComplete(e.data[0].complete);
+      setCompany_nm(e.data[0].company_nm);
     });
   }, []);
 
@@ -55,6 +54,7 @@ const DashboardContainer = () => {
         Count={Count}
         AllMonney={AllMonney}
         complete={complete}
+        company_nm={company_nm}
       />
     </div>
   );

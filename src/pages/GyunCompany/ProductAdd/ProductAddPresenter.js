@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react'
-import axios from 'axios'
+import React, { useState, useEffect, useContext } from 'react';
+import axios from 'axios';
 import {
   Row,
   Col,
@@ -15,90 +15,90 @@ import {
   Modal,
   Avatar,
   Input,
-} from 'antd'
+} from 'antd';
 
-import { PlusOutlined } from '@ant-design/icons'
+import { PlusOutlined } from '@ant-design/icons';
 import {
   RVWysiwygEditor,
   RVInput,
   RVAddressForm,
   RVPriceInput,
   PostCodeInput,
-} from '../../../component'
+} from '../../../component';
 // import { productApi, commonApi, fileApi } from 'src/api'
 
-import HtmlParser from 'react-html-parser'
-import { GyunProductAPI } from '../../../api'
-import GyunLoginAPI from '../../../api/GyunLoginAPI'
-import GyunPromotionAPI from '../../../api/GyunPromotionAPI'
-import { getCookie } from '../../../Utils'
-import { useHistory } from 'react-router-dom'
+import HtmlParser from 'react-html-parser';
+import { GyunProductAPI } from '../../../api';
+import GyunLoginAPI from '../../../api/GyunLoginAPI';
+import GyunPromotionAPI from '../../../api/GyunPromotionAPI';
+import { getCookie } from '../../../Utils';
+import { useHistory } from 'react-router-dom';
 
-const { Option } = Select
+const { Option } = Select;
 const categoryList = [
   { type_seq: '1', type_nm: '펜션' },
   { type_seq: '2', type_nm: '리조트' },
   { type_seq: '3', type_nm: '자전거' },
   { type_seq: '4', type_nm: '자동차' },
   { type_seq: '5', type_nm: '오토바이' },
-]
+];
 function ProductAddPresenter(props) {
   // const { handleChangePageTitle } = useContext(AdminContext)
   // 상품 카테고리
-  let history = useHistory()
-  const [category, setCategory] = useState('펜션')
-  const [user, setUser] = useState({})
+  let history = useHistory();
+  const [category, setCategory] = useState('펜션');
+  const [user, setUser] = useState({});
   // 상품명
-  const [productName, setProductName] = useState('')
+  const [productName, setProductName] = useState('');
   // 전화번호
-  const [tel, setTel] = useState('')
+  const [tel, setTel] = useState('');
   // 주소 관련 state
-  const [postcode, setPostcode] = useState('')
-  const [address, setAddress] = useState('')
-  const [otherAddress, setOtherAddress] = useState('')
+  const [postcode, setPostcode] = useState('');
+  const [address, setAddress] = useState('');
+  const [otherAddress, setOtherAddress] = useState('');
   // eslint-disable-next-line
-  const [addressValidate, setAddressValidate] = useState([])
+  const [addressValidate, setAddressValidate] = useState([]);
   // 가격
-  const [price, setPrice] = useState(0)
+  const [price, setPrice] = useState(0);
   // 컨텐츠
-  const [contents, setContents] = useState('')
+  const [contents, setContents] = useState('');
   // 프로모션
-  const [promotion, setPromotion] = useState(1)
+  const [promotion, setPromotion] = useState(1);
   //양
-  const [amount, setAmount] = useState('')
+  const [amount, setAmount] = useState('');
   // eslint-disable-next-line
-  const [promotionList, setPromotionList] = useState([])
+  const [promotionList, setPromotionList] = useState([]);
   // 이미지 파일 관련 state
   // eslint-disable-next-line
-  const [thumbnailFileObj, setThumbnailFileObj] = useState([])
-  const [imageList, setImageList] = useState([])
+  const [thumbnailFileObj, setThumbnailFileObj] = useState([]);
+  const [imageList, setImageList] = useState([]);
 
-  const [preview, setPreview] = useState(false)
+  const [preview, setPreview] = useState(false);
 
   useEffect(() => {
-    getUser()
-    getPromot()
-  }, [])
+    getUser();
+    getPromot();
+  }, []);
   const getUser = async () => {
-    await GyunLoginAPI.empLogin()
-  }
+    await GyunLoginAPI.empLogin();
+  };
   const getPromot = async () => {
-    const promot = await GyunPromotionAPI.getPromotion()
-    setPromotionList(promot.data)
-  }
+    const promot = await GyunPromotionAPI.getPromotion();
+    setPromotionList(promot.data);
+  };
   const setAddressState = (result) => {
     if (result.postcode !== postcode) {
-      setPostcode(result.postcode)
+      setPostcode(result.postcode);
     }
 
     if (result.address !== address) {
-      setAddress(result.address)
+      setAddress(result.address);
     }
 
     if (result.otherAddress !== otherAddress) {
-      setOtherAddress(result.otherAddress)
+      setOtherAddress(result.otherAddress);
     }
-  }
+  };
 
   // const fetchGetCommon = (callback) => {
   //   commonApi.getCommonInfo().then((result) => {
@@ -125,19 +125,22 @@ function ProductAddPresenter(props) {
     imageListParam
   ) => {
     if (imageListParam.length === 0) {
-      alert('썸네일등록은 필수입니다.')
-      return
+      alert('썸네일등록은 필수입니다.');
+      return;
     }
-    const fileObject = imageListParam.map((item) => item.originFileObj)
-    let formData = new FormData()
+    const fileObject = imageListParam.map((item) => item.originFileObj);
+    let formData = new FormData();
 
     for (let index = 0; index < fileObject.length; index++) {
-      formData.append('image_path', fileObject[index])
+      formData.append('image_path', fileObject[index]);
     }
 
-    const thumbnail = await GyunProductAPI.postThumbnail(formData)
-    const company_seq = getCookie('company')
-    console.log(company_seq)
+    const thumbnail = await GyunProductAPI.postThumbnail(formData);
+    const company_seq = getCookie('company');
+    console.log(company_seq);
+    console.log(thumbnail);
+    console.log(formData);
+    console.log(body);
     const body = {
       t_goods_type_seq: category,
       goods_detail_nm: productName,
@@ -151,27 +154,28 @@ function ProductAddPresenter(props) {
       goods_image_path: thumbnail.data,
       t_company_seq: company_seq,
       goods_detail_amount: amount,
-    }
-    const response = await GyunProductAPI.postProduct(body)
+    };
+    const response = await GyunProductAPI.postProduct(body);
+    console.log(body);
     if (response.code == 200) {
-      history.push('/company/product')
+      history.push('/company/product');
     }
-  }
+  };
 
   const uploadButton = (
     <div>
       <PlusOutlined />
       <div style={{ marginTop: 8 }}>이미지 업로드</div>
     </div>
-  )
+  );
 
   const renderImageBanner = (key, src) => {
     return (
       <div key={key} style={{ width: '100%' }}>
         <img src={src} style={{ height: '280px', width: '100%' }} alt={key} />
       </div>
-    )
-  }
+    );
+  };
 
   return (
     <>
@@ -188,7 +192,9 @@ function ProductAddPresenter(props) {
                 <div style={{ width: '100%', marginBottom: '10px' }}>
                   {imageList.length > 0 ? (
                     <Carousel autoplay>
-                      {imageList.map((item, index) => renderImageBanner(index, item.imgLink))}
+                      {imageList.map((item, index) =>
+                        renderImageBanner(index, item.imgLink)
+                      )}
                     </Carousel>
                   ) : (
                     <div style={{ height: '280px', width: '100%' }}>
@@ -204,27 +210,31 @@ function ProductAddPresenter(props) {
                       if (imageList.length < info.fileList.length) {
                         // 이미지 추가
                         if (info.file.type !== 'image/png') {
-                          alert('png 파일만 등록 가능합니다.')
-                          return
+                          alert('png 파일만 등록 가능합니다.');
+                          return;
                         }
-                        if (!imageList.find((item) => item.uid === info.file.uid)) {
-                          const reader = new FileReader()
-                          reader.readAsDataURL(info.file.originFileObj)
+                        if (
+                          !imageList.find((item) => item.uid === info.file.uid)
+                        ) {
+                          const reader = new FileReader();
+                          reader.readAsDataURL(info.file.originFileObj);
 
                           reader.onload = () => {
-                            let dataUrl = reader.result
+                            let dataUrl = reader.result;
 
                             setImageList(
                               imageList.concat({
                                 ...info.file,
                                 imgLink: dataUrl,
                               })
-                            )
-                          }
+                            );
+                          };
                         }
                       } else if (imageList.length > info.fileList.length) {
                         //이미지 삭제
-                        setImageList(imageList.filter((item) => item.uid !== info.file.uid))
+                        setImageList(
+                          imageList.filter((item) => item.uid !== info.file.uid)
+                        );
                       }
                     }}
                   >
@@ -244,7 +254,7 @@ function ProductAddPresenter(props) {
                   style={{ width: '150px' }}
                   value={category}
                   onChange={(value) => {
-                    setCategory(value)
+                    setCategory(value);
                   }}
                 >
                   {categoryList.map((item, index) => {
@@ -252,7 +262,7 @@ function ProductAddPresenter(props) {
                       <Option key={item.type_seq} value={item.type_seq}>
                         {item.type_nm}
                       </Option>
-                    )
+                    );
                   })}
                 </Select>
               </Form.Item>
@@ -261,7 +271,7 @@ function ProductAddPresenter(props) {
                 <RVInput
                   value={productName}
                   onChange={(e) => {
-                    setProductName(e.target.value)
+                    setProductName(e.target.value);
                   }}
                 />
               </Form.Item>
@@ -270,7 +280,7 @@ function ProductAddPresenter(props) {
                 <RVInput
                   value={tel}
                   onChange={(e) => {
-                    setTel(e.target.value)
+                    setTel(e.target.value);
                   }}
                 />
               </Form.Item>
@@ -281,14 +291,17 @@ function ProductAddPresenter(props) {
                   address={address}
                   otherAddress={otherAddress}
                   onChange={(result) => {
-                    setAddressState(result)
+                    setAddressState(result);
                   }}
                   validate={addressValidate}
                 />
               </Form.Item>
               <Divider />
               <Form.Item label="가격" style={{ textAlign: 'left' }}>
-                <RVPriceInput value={price} onChange={(value) => setPrice(value)} />
+                <RVPriceInput
+                  value={price}
+                  onChange={(value) => setPrice(value)}
+                />
               </Form.Item>
               <Divider />
               <Form.Item label="프로모션" style={{ textAlign: 'left' }}>
@@ -297,7 +310,7 @@ function ProductAddPresenter(props) {
                   style={{ width: '150px' }}
                   value={promotion}
                   onChange={(value) => {
-                    setPromotion(value)
+                    setPromotion(value);
                   }}
                 >
                   {promotion.length != 0 ? (
@@ -306,7 +319,7 @@ function ProductAddPresenter(props) {
                         <Option key={key} value={value.promotion_seq}>
                           {value.promotion_nm}
                         </Option>
-                      )
+                      );
                     })
                   ) : (
                     <Option></Option>
@@ -315,7 +328,10 @@ function ProductAddPresenter(props) {
               </Form.Item>
               <Divider />
               <Form.Item label="양" style={{ textAlign: 'left' }}>
-                <Input value={amount} onChange={(e) => setAmount(e.target.value)}></Input>
+                <Input
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                ></Input>
               </Form.Item>
             </Form>
           </Card>
@@ -327,7 +343,7 @@ function ProductAddPresenter(props) {
             <Card title="상품 설명란" style={{ height: '700px' }}>
               <RVWysiwygEditor
                 onChange={(data) => {
-                  setContents(data)
+                  setContents(data);
                 }}
               />
             </Card>
@@ -352,14 +368,14 @@ function ProductAddPresenter(props) {
                   promotion,
                   contents,
                   imageList
-                )
+                );
               }}
             >
               저장
             </Button>
             <Button
               onClick={() => {
-                props.history.push('/admin/product/list')
+                props.history.push('/admin/product/list');
               }}
             >
               돌아가기
@@ -368,7 +384,7 @@ function ProductAddPresenter(props) {
         </Col>
       </Row>
     </>
-  )
+  );
 }
 
-export default ProductAddPresenter
+export default ProductAddPresenter;

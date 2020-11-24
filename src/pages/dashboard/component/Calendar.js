@@ -8,8 +8,6 @@ import './Calendar.css';
 npm install @fullcalendar/react @fullcalendar/daygrid
 */
 const Calendar = (props) => {
-  console.log(props);
-  // console.log(states);
   const handleEventClick = (clickInfo) => {
     console.log(clickInfo.event.extendedProps.content);
     console.log(clickInfo.event.start);
@@ -26,7 +24,6 @@ const Calendar = (props) => {
     );
   };
 
-  console.log(props);
   return (
     <div>
       <div className="demo-app" style={{ scrollbarWidth: 'none' }}>

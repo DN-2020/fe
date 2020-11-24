@@ -12,7 +12,7 @@ import { Calendar } from './component';
 const { Header, Footer, Sider, Content } = Layout;
 
 let data;
-let arr1 = [];
+let arr1 = [{}];
 let config = {
   headers: {
     'Access-Control-Allow-Origin': true,
@@ -35,22 +35,27 @@ const ResListPresenter = (props) => {
       }/reservation`,
       config
     ).then((e) => {
-      arr1 = e.data.data.map((e) => {
-        return {
-          title: e.goods_detail_nm,
-          content: e.goods_detail_nm,
-          start: e.reservation_st,
-          end: e.reservation_end,
-        };
-      });
-      setData(arr1);
+      console.log(e);
+      if (e.data.data != 0) {
+        arr1 = e.data.data.map((e) => {
+          return {
+            title: e.goods_detail_nm,
+            content: e.goods_detail_nm,
+            start: e.reservation_st,
+            end: e.reservation_end,
+          };
+        });
+        setData(arr1);
+      } else {
+        alert('예약내역이 없습니다.');
+      }
     });
   };
-
+  console.log(arr1[0].title);
   return (
     <>
       <Header style={style.headerLayout}>
-        <h1>예약관리</h1>
+        <h1>{arr1[0].title}</h1>
       </Header>
       <div className="contentContainer" style={style.container}>
         <div className="contentContent" style={style.content}>

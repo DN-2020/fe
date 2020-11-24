@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import { Layout, Table, Menu, Button } from 'antd';
+import { Layout, Table, Menu, Button, Rate } from 'antd';
 import { useHistory } from 'react-router-dom';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -11,6 +11,8 @@ const { Header, Footer, Sider, Content } = Layout;
 
 const ReviewDetailPresenter = (props) => {
   console.log(props.props.history.location.state.detail.name);
+  console.log(props.props.history.location.state);
+
   let history = useHistory();
   const data = {
     seq: '1',
@@ -22,12 +24,13 @@ const ReviewDetailPresenter = (props) => {
     history.push('/company/review');
   };
   const cancelReview = () => {
-    history.push('/company/review');
+    // history.push('/company/review');
+    history.goBack(1);
   };
   return (
     <>
       <Header style={style.headerLayout}>
-        <h1>예약상세</h1>
+        <h1>리뷰상세</h1>
       </Header>
       <div className="contentContainer" style={style.container}>
         <div className="contentContent" style={style.content}>
@@ -39,18 +42,29 @@ const ReviewDetailPresenter = (props) => {
                   style={{ ...style.contentLayout, width: '100%' }}
                 >
                   <div style={style.itemContainer}>
-                    상품상세명:
+                    상품명:{' '}
                     {props.props.history.location.state.detail.goods_detail_nm}
                   </div>
                   <div style={style.itemContainer}>
-                    이름:{props.props.history.location.state.detail.name}
+                    이름: {props.props.history.location.state.detail.name}
                   </div>
                   <div style={style.itemContainer}>
-                    내용:{props.props.history.location.state.detail.review}
+                    내용: {props.props.history.location.state.detail.review}
                   </div>
                   <div style={style.itemContainer}>
-                    별점:{props.props.history.location.state.detail.starRate}
+                    별점:
+                    <Rate
+                      disabled
+                      defaultValue={
+                        props.props.history.location.state.detail.starRate
+                      }
+                    />
                   </div>
+                  <div style={style.itemContainer}>
+                    날짜 : {props.props.history.location.state.detail.end}
+                  </div>
+                  <br />
+                  <br />
 
                   <div>
                     <Button onClick={deleteReview}>삭제</Button>

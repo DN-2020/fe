@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
 import '../DashBoard.css';
-import { Card, Layout } from 'antd';
+import { Card, Layout, Divider } from 'antd';
 import Calendar1 from './Calendar';
 import PropTypes from 'prop-types';
 const { Meta } = Card;
 const DashBoardContent = (props) => {
-  console.log('scheduled : ' + props.props.scheduled);
-  console.log('complete : ' + props.props.complete);
-  console.log('Count :' + props.props.Count);
-  console.log('AllMonney :' + props.props.AllMonney);
-
   const [content, setcontent] = useState();
   const [reservation_nm, setreservation_nm] = useState();
   const [approval_method, setapproval_method] = useState();
@@ -30,18 +25,7 @@ const DashBoardContent = (props) => {
             <Meta description={props.props.complete} />
           </Card>
         </div>
-        {/**         <div>
-          {' '}
-          <Card title="입금대기" bordered={true}>
-            <Meta title="" description=" 12건" />
-          </Card>
-        </div>*/}
-        <div>
-          {' '}
-          {/**           <Card title="예약 횟수" bordered={true}>
-            <Meta description=" 12건" />
-  </Card>**/}
-        </div>
+
         <div>
           {' '}
           <Card title="매출" bordered={true}>
@@ -68,19 +52,23 @@ const DashBoardContent = (props) => {
         </div>
         {reservation_total_price ? (
           <div id="nav">
-            <p>예약상세</p>
+            <h1>예약상세</h1>
             <br />
             상세 명:{content}
             <br />
+            <Divider />
             예약자: {reservation_nm}
             <br />
+            <Divider />
             결제방법: {approval_method}
             <br />
+            <Divider />
             금액 : {reservation_total_price}원
+            <Divider />
           </div>
         ) : (
           <div id="nav">
-            <p>예약상세</p>{' '}
+            <h1>예약상세</h1>{' '}
           </div>
         )}
       </div>
