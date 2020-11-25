@@ -23,8 +23,9 @@ import { backend_url } from '../../Utils';
 import InfiniteScroll from 'react-infinite-scroller';
 import Reservation_Cancel from '../../api/Reservation_Cancel';
 import Review_modify from '../../api/Review_modify';
-//npm install --save @ant-design/icons
 import { ConsoleSqlOutlined, SettingOutlined } from '@ant-design/icons';
+//npm install react-html-parser
+//npm install --save @ant-design/icons
 const { Header, Footer, Sider, Content } = Layout;
 const { TabPane } = Tabs;
 
@@ -87,7 +88,6 @@ const AccountInfoPresenter = (props) => {
     setReViewDetail(false);
     setVisible_refund(false);
   };
-  //////////////////////////////////////////////////////////////////////////////////////
   const refund = {
     refund_reason: refund_reason,
     refund_nm: refund_nm,

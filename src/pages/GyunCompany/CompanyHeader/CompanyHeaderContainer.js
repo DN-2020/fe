@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Layout } from 'antd';
-import CompanySiderPresenter from './CompanySiderPresenter';
+import CompanyHeaderPresenter from './CompanyHeaderPresenter';
 const { Content, Sider, Header } = Layout;
 const ProductAddContainer = (props) => {
-  return <CompanySiderPresenter props={props}></CompanySiderPresenter>;
+  return <CompanyHeaderPresenter props={props}></CompanyHeaderPresenter>;
 };
 
 ProductAddContainer.propTypes = {};

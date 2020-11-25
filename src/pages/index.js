@@ -31,3 +31,4 @@ export { default as DepartmentRegister } from './DepartmentRegister';
 export { default as DepartmentDetail } from './DepartmentDetail';
 export { default as CompanyLogin } from './GyunCompany/CompnayLogin';
 export { default as CompanySider } from './GyunCompany/CompanySider';
+export { default as CompanyHeader } from './GyunCompany/CompanyHeader';
