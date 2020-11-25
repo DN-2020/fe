@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Card, Button, Layout, Input } from 'antd';
 import PropTypes from 'prop-types';
 import { Link, useHistory } from 'react-router-dom';
@@ -6,18 +6,22 @@ import GyunLoginAPI from '../../../api/GyunLoginAPI';
 import { setCookie } from '../../../Utils';
 const { Header, Content } = Layout;
 
-const LoginPresenter = (props) => {
+function CompnayLoginPresenter(props) {
 	const [id, setId] = useState('');
 	const [pw, setPw] = useState('');
 	let history = useHistory();
+	useEffect(() => {
+		console.log(props);
+	}, []);
 	const onLogin = async () => {
-		const body = { customer_email: id, customer_pw: pw };
-		const response = await GyunLoginAPI.login(body);
+		const body = { emp_email: id, emp_pw: pw };
+		const response = await GyunLoginAPI.empLogin(body);
 		if (response.code == 200) {
 			setCookie('accessToken', response.data.accessToken);
-			history.push('/user');
-		} else {
-			alert('잘못된 아이디나 비밀번호입니다.');
+			setCookie('company', response.data.company_seq);
+			history.push({ pathname: '/company', state: { login: true } });
+		} else if (response.code == -400) {
+			alert('잘못된 아이디나 비밀번호 입니다.');
 		}
 	};
 	return (
@@ -65,10 +69,7 @@ const LoginPresenter = (props) => {
 			</Layout>
 		</>
 	);
-};
-
-LoginPresenter.propTypes = {};
-
+}
 const style = {
 	cardStyle: {
 		width: 500,
@@ -88,4 +89,5 @@ const style = {
 		marginLeft: '10%',
 	},
 };
-export default LoginPresenter;
+
+export default CompnayLoginPresenter;

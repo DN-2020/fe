@@ -29,3 +29,4 @@ export { default as EmployeeDetail } from './EmployeeDetail';
 export { default as Department } from './Department';
 export { default as DepartmentRegister } from './DepartmentRegister';
 export { default as DepartmentDetail } from './DepartmentDetail';
+export { default as CompanyLogin } from './GyunCompany/CompnayLogin';
