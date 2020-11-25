@@ -1,29 +1,31 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Card, Button, Layout, Input } from 'antd';
-import PropTypes from 'prop-types';
-import { Link, useHistory } from 'react-router-dom';
-import GyunLoginAPI from '../../../api/GyunLoginAPI';
-import { setCookie } from '../../../Utils';
-const { Header, Content } = Layout;
+import React, { useState, useEffect, useContext } from 'react'
+import { Card, Button, Layout, Input } from 'antd'
+import PropTypes from 'prop-types'
+import { Link, useHistory } from 'react-router-dom'
+import GyunLoginAPI from '../../../api/GyunLoginAPI'
+import { setCookie } from '../../../Utils'
+const { Header, Content } = Layout
 
 function CompnayLoginPresenter(props) {
-  const [id, setId] = useState('');
-  const [pw, setPw] = useState('');
-  let history = useHistory();
+  const [id, setId] = useState('')
+  const [pw, setPw] = useState('')
+  let history = useHistory()
   useEffect(() => {
-    console.log(props);
-  }, []);
+    console.log(props)
+  }, [])
   const onLogin = async () => {
-    const body = { emp_email: id, emp_pw: pw };
-    const response = await GyunLoginAPI.empLogin(body);
+    const body = { emp_email: id, emp_pw: pw }
+    const response = await GyunLoginAPI.empLogin(body)
     if (response.code == 200) {
-      setCookie('accessToken', response.data.accessToken);
-      setCookie('company', response.data.company_seq);
-      history.push({ pathname: '/company/dashboard', state: { login: true } });
+      await setCookie('accessToken', response.data.accessToken)
+      await setCookie('company', response.data.company_seq)
+      await props.setLogin(true)
+      history.push({ pathname: '/company/dashboard', state: { login: true } })
     } else if (response.code == -400) {
-      alert('잘못된 아이디나 비밀번호 입니다.');
+      alert('잘못된 아이디나 비밀번호 입니다.')
     }
-  };
+  }
+
   return (
     <>
       <Layout>
@@ -38,7 +40,7 @@ function CompnayLoginPresenter(props) {
                   placeholder="ID"
                   value={id}
                   onChange={(e) => {
-                    setId(e.target.value);
+                    setId(e.target.value)
                   }}
                   style={{ border: 'none', borderBottom: '1px solid' }}
                 />
@@ -48,14 +50,14 @@ function CompnayLoginPresenter(props) {
                   placeholder="password"
                   value={pw}
                   onChange={(e) => {
-                    setPw(e.target.value);
+                    setPw(e.target.value)
                   }}
                   style={{ border: 'none', borderBottom: '1px solid' }}
                 />
               </div>
               <Button
                 onClick={() => {
-                  onLogin();
+                  onLogin()
                 }}
               >
                 Login
@@ -68,7 +70,7 @@ function CompnayLoginPresenter(props) {
         </Content>
       </Layout>
     </>
-  );
+  )
 }
 const style = {
   cardStyle: {
@@ -88,6 +90,6 @@ const style = {
   SignUpButtonStyle: {
     marginLeft: '10%',
   },
-};
+}
 
-export default CompnayLoginPresenter;
+export default CompnayLoginPresenter

@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
-import { Layout } from 'antd';
-import DashBoardContent from './component/DashBoardContent';
-import DashBoardSider from './component/DashBoardSider';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react'
+import { Layout } from 'antd'
+import DashBoardContent from './component/DashBoardContent'
+import DashBoardSider from './component/DashBoardSider'
+import PropTypes from 'prop-types'
 
-const { Content, Sider, Header } = Layout;
+const { Content, Sider, Header } = Layout
 
 const DashboardPresenter = (props) => {
-  // console.log(props.arr1[0]);
-  const [a, setA] = useState(false);
+  const [a, setA] = useState(false)
   const onCollapse = (collapsed) => {
-    setA(collapsed);
-  };
+    setA(collapsed)
+  }
 
   return (
     <div>
@@ -35,10 +34,10 @@ const DashboardPresenter = (props) => {
         </Layout>
       </div>
     </div>
-  );
-};
+  )
+}
 
-DashboardPresenter.propTypes = {};
+DashboardPresenter.propTypes = {}
 
 const style = {
   headerLayout: {
@@ -50,6 +49,6 @@ const style = {
     justifyContent: 'flex-start',
     flexWrap: 'wrap',
   },
-};
+}
 
-export default DashboardPresenter;
+export default DashboardPresenter

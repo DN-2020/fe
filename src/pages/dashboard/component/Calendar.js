@@ -1,28 +1,20 @@
-import React, { useState } from 'react';
-import FullCalendar from '@fullcalendar/react';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import { INITIAL_EVENTS } from '../CalendarEvent';
-import './Calendar.css';
+import React, { useState } from 'react'
+import FullCalendar from '@fullcalendar/react'
+import dayGridPlugin from '@fullcalendar/daygrid'
+import { INITIAL_EVENTS } from '../CalendarEvent'
+import './Calendar.css'
 // import { handleEventClick } from '../CalendarFunc';
 /*
 npm install @fullcalendar/react @fullcalendar/daygrid
 */
 const Calendar = (props) => {
   const handleEventClick = (clickInfo) => {
-    console.log(clickInfo.event.extendedProps.content);
-    console.log(clickInfo.event.start);
-    console.log(clickInfo.event.extendedProps.reservation_nm);
-    console.log(clickInfo.event.extendedProps.approval_method);
-    console.log(clickInfo.event.extendedProps.reservation_total_price);
-
     // props.setcalEvent(clickInfo.event.extendedProps.content);
-    props.setcontent(clickInfo.event.extendedProps.content);
-    props.setreservation_nm(clickInfo.event.extendedProps.reservation_nm);
-    props.setapproval_method(clickInfo.event.extendedProps.approval_method);
-    props.setreservation_total_price(
-      clickInfo.event.extendedProps.reservation_total_price
-    );
-  };
+    props.setcontent(clickInfo.event.extendedProps.content)
+    props.setreservation_nm(clickInfo.event.extendedProps.reservation_nm)
+    props.setapproval_method(clickInfo.event.extendedProps.approval_method)
+    props.setreservation_total_price(clickInfo.event.extendedProps.reservation_total_price)
+  }
 
   return (
     <div>
@@ -49,11 +41,10 @@ const Calendar = (props) => {
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
 const renderEventContent = (eventInfo) => {
-  console.log(eventInfo);
   return (
     <>
       {/**<ul>
@@ -62,9 +53,9 @@ const renderEventContent = (eventInfo) => {
       </ul>**/}
       {eventInfo.event.title}
     </>
-  );
-};
+  )
+}
 
-Calendar.propTypes = {};
+Calendar.propTypes = {}
 
-export default Calendar;
+export default Calendar

@@ -1,32 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Layout, Menu } from 'antd';
-import { getCookie } from '../../../Utils';
-const { SubMenu } = Menu;
-const { Sider, Header } = Layout;
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { Layout, Menu } from 'antd'
+import { getCookie } from '../../../Utils'
+const { SubMenu } = Menu
+const { Sider, Header } = Layout
 const CompanySiderContainer = (props) => {
-  const [key, setKey] = useState(props.key);
-  const [login, setLogin] = useState(false);
-  useEffect(() => {
-    if (getCookie('accessToken') != undefined) {
-      setLogin(true);
-    }
-  }, []);
+  const { login } = props
+  const [key, setKey] = useState(props.key)
+  // const [login, setLogin] = useState(false);
+  // useEffect(() => {
+  //   if (getCookie('accessToken') != undefined) {
+  //     setLogin(true);
+  //   }
+  // }, []);
   const handleKey = (e) => {
-    console.log(e);
-    setKey(e.key);
-  };
+    console.log(e)
+    setKey(e.key)
+  }
   return (
     <>
-      {login != false ? (
+      {login ? (
         <Sider>
           <div className="logo" />
-          <Menu
-            theme="dark"
-            selectedKeys={key}
-            defaultSelectedKeys={['1']}
-            mode="inline"
-          >
+          <Menu theme="dark" selectedKeys={key} defaultSelectedKeys={['1']} mode="inline">
             <Menu.Item key="1" onClick={handleKey}>
               <Link to={{ pathname: '/company/dashboard' }}>대시보드</Link>
             </Menu.Item>
@@ -67,7 +63,7 @@ const CompanySiderContainer = (props) => {
         <></>
       )}
     </>
-  );
-};
+  )
+}
 
-export default CompanySiderContainer;
+export default CompanySiderContainer

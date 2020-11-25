@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import CompanyLoginPresenter from './CompanyLoginPresenter';
+import React, { useEffect } from 'react'
+import PropTypes from 'prop-types'
+import CompanyLoginPresenter from './CompanyLoginPresenter'
 
 const CompnayLoginContainer = (props) => {
-	return <CompanyLoginPresenter props={props}></CompanyLoginPresenter>;
-};
+  return <CompanyLoginPresenter {...props}></CompanyLoginPresenter>
+}
 
-CompnayLoginContainer.propTypes = {};
+CompnayLoginContainer.propTypes = {}
 
-export default CompnayLoginContainer;
+export default CompnayLoginContainer
