@@ -41,11 +41,6 @@ const DashboardContainer = () => {
     });
   }, []);
 
-  const getUser = async () => {
-    const response = await Company_Login.companylogin();
-
-    setCookie('accessToken', response.data.accessToken);
-  };
   return (
     <div>
       <DashboardPresenter

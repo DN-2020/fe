@@ -84,7 +84,7 @@ const ReviewListPresenter = (props) => {
       dataIndex: 'starRate',
       render: (text) => (
         <div>
-          <Rate disabled defaultValue={text} />
+          <Rate disabled allowHalf defaultValue={text} />
         </div>
       ),
     },

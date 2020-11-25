@@ -3,9 +3,9 @@ import MainPresenter from './MainPresenter';
 import LoginAPI from '../../api/LoginAPI';
 
 const MainContainer = (props) => {
-  useEffect(() => {
-    LoginAPI.PostUser().then((e) => console.log(e));
-  }, []);
+  // useEffect(() => {
+  //   LoginAPI.PostUser().then((e) => console.log(e));
+  // }, []);
 
   return <MainPresenter props={props}></MainPresenter>;
 };
