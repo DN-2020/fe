@@ -43,6 +43,7 @@ const validateMessages = {
 
 const ReservationPresenter = (props) => {
 	const { num, start, end, people } = props.props.location.state;
+
 	const [product, setProduct] = useState(null);
 	const [promotion, setPromotion] = useState(null);
 	const [startH, setStartH] = useState('');
@@ -54,6 +55,7 @@ const ReservationPresenter = (props) => {
 		setEndH(e.format('HH:mm'));
 	};
 	useEffect(() => {
+		console.log(props);
 		getProduct();
 	}, []);
 	const getProduct = async () => {
@@ -104,7 +106,7 @@ const ReservationPresenter = (props) => {
 			const response = await GyunReservation.postReservation(body);
 			if (response.code == 200) {
 				history.push({
-					pathname: `/user/detail/${response.data.reservation_seq}`,
+					pathname: `/user/accountinfo`,
 					state: { num: response.data.reservation_seq },
 				});
 			}
