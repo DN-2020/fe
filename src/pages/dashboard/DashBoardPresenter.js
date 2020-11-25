@@ -9,16 +9,14 @@ const { Content, Sider, Header } = Layout;
 const DashboardPresenter = (props) => {
   // console.log(props.arr1[0]);
   const [a, setA] = useState(false);
-  console.log(props.reData);
   const onCollapse = (collapsed) => {
-    console.log(collapsed);
     setA(collapsed);
   };
 
   return (
     <div>
       <Header style={style.headerLayout}>
-        <h1>대시보드</h1>
+        <h1>{props.company_nm}</h1>
       </Header>
       <div className="contentContainer" style={style.container}>
         <Layout style={{ minHeight: '100vh' }}>

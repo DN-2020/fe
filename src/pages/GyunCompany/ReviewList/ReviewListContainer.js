@@ -51,7 +51,6 @@ const ReviewListContainer = (props) => {
       //   setGoods_nm(e.data[0].goods_detail_nm);
     });
   }, []);
-  console.log('11 : ' + goods_nms);
   return (
     <ReviewListPresenter
       // arr1={arr1}

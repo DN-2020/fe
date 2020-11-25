@@ -19,28 +19,39 @@ const AccountInfoContainer = () => {
   const [UserInfo, setUserInfo] = useState([{}]);
   const [UserReview, setUserReview] = useState([{}]);
   const [UserRefund, setUserRefund] = useState([{}]);
+  const [image_gg, setImage_gg] = useState(
+    'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'
+  );
 
-  useEffect(async () => {
+  const getPreData = async () => {
     await MyInfo.getMyInfo().then((e) => {
       setCustomer_email(e.data.customer_email);
       setCcustomer_nm(e.data.customer_nm);
       setCcustomer_tel(e.data.customer_tel);
       setDetailAddress(e.data.customer_detail_address);
       setAddress(e.data.customer_address);
+      setImage_gg(e.data.customer_image_path);
     });
-    await User_Reservation.getReservation().then((e) => (arr1 = e.data));
-    await User_ReviewList.getReviewList().then((e) => (arr2 = e.data));
-    await User_refund.getReservation().then((e) => (arr3 = e.data));
-    // await User_refund.getReservation().then((e) => console.log(e));
-    // await User_Reservation.getReservation().then((e) => console.log(e));
+    await User_Reservation.getReservation().then((e) => {
+      // console.log(e.data)
+      for (let i = 0; i < e.data.length; i++) {
+        if (e.data[i].reservation_yn != 'n') {
+          arr1.push(e.data[i]);
+        }
+      }
+    });
+    await User_ReviewList.getReviewList().then((e) => {
+      return (arr2 = e.data);
+    });
 
+    await User_refund.getReservation().then((e) => (arr3 = e.data));
     setUserInfo(arr1);
     setUserReview(arr2);
     setUserRefund(arr3);
+  };
+  useEffect(() => {
+    getPreData();
   }, []);
-
-  console.log(UserRefund);
-  console.log(UserInfo);
 
   return (
     <div>
@@ -56,6 +67,8 @@ const AccountInfoContainer = () => {
         UserInfo={UserInfo}
         UserReview={UserReview}
         UserRefund={UserRefund}
+        image_gg={image_gg}
+        setImage={setImage_gg}
       />
     </div>
   );

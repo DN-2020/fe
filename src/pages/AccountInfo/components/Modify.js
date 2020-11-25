@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Card, Button, Avatar, Input, Form } from 'antd';
+import { Card, Button, Avatar, Input, Form, message, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { UserInfo_Revise } from '../../../api';
 import { get } from 'js-cookie';
 import { ApiManager } from '../../../Utils';
+import { GyunProductAPI } from '../../../api';
+import Dropzone from 'react-dropzone';
 import Axios from 'axios';
-
+//npm install react-dropzone
 const $http = new ApiManager();
 
 const { Meta } = Card;
 
 const Modify = (props) => {
-  console.log(props);
   const [name, setName] = useState(props.props.props.customer_nm);
   const [email, setEmail] = useState(props.props.props.customer_email);
   const [phonnumber, setPhonnumber] = useState(props.props.props.customer_tel);
@@ -20,44 +21,44 @@ const Modify = (props) => {
   const [detailAddress, setDetailAddress] = useState(
     props.props.props.DetailAddress
   );
+  const [iamge, setImage] = useState(props.props.props.image_gg);
+  console.log(props.props.props.customer_email);
 
   let config = {
     headers: {
       'Access-Control-Allow-Origin': true,
-      // 'Set-Cookie': Axios.defaults.headers.common['Set-Cookie'],
       Authorization: get('accessToken'),
     },
   };
-  const body = [
-    { customer_email: email },
-    { customer_nm: name },
-    { customer_tel: phonnumber },
-    { customer_address: address },
-    { customer_detail_address: detailAddress },
-    { customer_post: '33245' },
-  ];
+  const body = {
+    customer_email: email,
+    customer_nm: name,
+    customer_tel: phonnumber,
+    customer_address: address,
+    customer_detail_address: detailAddress,
+    customer_post: '33245',
+    customer_image_path: iamge,
+  };
+
+  const openMessage = () => {
+    message.loading({ content: 'Loading...' });
+    setTimeout(() => {
+      message.success({ content: '수정완료!' });
+    }, 1000);
+  };
+
   const MyInfoChange = (e) => {
-    console.log(name);
-    console.log(email);
-    console.log(phonnumber);
-    console.log(address);
-    console.log(detailAddress);
-    UserInfo_Revise.UserRevise().then((e) => console.log(e));
-    // UserInfo_Revise.UserRevise(
-    //   'https://api.dnlab.kr/v1/user/info',
-    //   body
-    // ).then((e) => console.log(e));
-    // Axios.put('https://api.dnlab.kr/v1/user/info', body, config).then((e) =>
-    //   console.log(e)
-    // );
-    //   $http
-    //     .put('https://api.dnlab.kr/v1/user/info', body)
-    //     .then((e) => console.log(e));
+    Axios.post('https://api.dnlab.kr/v1/user/info', body, config).then((e) =>
+      console.log(e)
+    );
+    openMessage();
+    props.props.ChangeInfo();
   };
   const nameChange = (e) => {
     setName(e.currentTarget.value);
   };
   const emailChange = (e) => {
+    console.log(e.currentTarget.value);
     setEmail(e.currentTarget.value);
   };
   const phonenumChange = (e) => {
@@ -81,19 +82,51 @@ const Modify = (props) => {
     reader.onloadend = () => {
       setFIle(file);
       setpreviewURL(reader.result);
+      // setpreviewURL
     };
     reader.readAsDataURL(file);
   };
+  //////////////////////////////////
+  const onDrop = (files) => {
+    let formData = new FormData();
+    formData.append('image_path', files[0]);
+
+    GyunProductAPI.postThumbnail(formData).then((e) => {
+      console.log(e.request.response);
+      setImage(e.request.response);
+      setpreviewURL(e.request.response);
+    });
+  };
+  //////////////////////////////////
   return (
     <>
-      <input
-        type="file"
-        icon={<UploadOutlined />}
-        onChange={handleFileOnChange}
-      ></input>
+      <Dropzone onDrop={onDrop}>
+        {({ getRootProps, getInputProps }) => (
+          <section>
+            <div
+              style={{
+                width: '25px',
+                height: '25px',
+                border: '1px solid lightgray',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              {...getRootProps()}
+            >
+              <UploadOutlined />
+              <input {...getInputProps()} />
+            </div>
+          </section>
+        )}
+      </Dropzone>
       <Meta
         style={style.metaStyle}
-        avatar={<Avatar style={style.avatar} src={previewURL} />}
+        avatar={
+          <Avatar
+            style={style.avatar}
+            src={`https://store.dnlab.kr/${iamge}`}
+          />
+        }
       />
       <br />
       <Form
