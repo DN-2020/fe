@@ -1,8 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Form, Input, InputNumber, Button, Select, Layout } from 'antd';
-const { Content, Sider, Header } = Layout;
+import React, { useState, useEffect, useContext } from 'react'
+import Dept_Register from '../../api/Dept_Register'
 
+import { Form, Input, InputNumber, Button, Select, Layout } from 'antd';
+import { useHistory } from 'react-router-dom'
+
+function DepartmentRegisterPresenter(props) {
+	const { Content, Sider, Header } = Layout;
 const layout = {
 	labelCol: {
 		span: 8,
@@ -21,13 +24,45 @@ const validateMessages = {
 		range: '${label} must be between ${min} and ${max}',
 	},
 };
+let history = useHistory()
+const [deptName, setDeptName] = useState('')
+const [deptManager, setDeptManager] = useState('')
+const [deptPath, setDeptPath] = useState('')
 
-const DepartmentRegisterPresenter = (props) => {
-	const onFinish = (values) => {
-		console.log(values);
-	};
-	return (
-		<>
+
+const registerDept = async (
+    deptName,
+    deptManager,
+    deptPath,
+    
+  ) => {
+	  
+    const body = {
+		dept_nm: deptName,
+		dept_path: deptPath,
+		dept_manager:deptManager,
+    
+    }
+    const response = await Dept_Register.dept_register(body)
+    if (response.code == 200) {
+	  console.log("등록")
+      history.push('/company/department')
+    }
+  }
+ 
+  const back = () => {
+	history.push('/company/department')
+}
+
+
+  
+  const onFinish = (values) => {
+	console.log(values);
+};
+
+
+  return (
+    <>
 			<Header style={style.headerLayout}>
 				<h1>부서등록</h1>
 			</Header>
@@ -50,24 +85,35 @@ const DepartmentRegisterPresenter = (props) => {
 									onFinish={onFinish}
 									validateMessages={validateMessages}
 								>
-									<Form.Item label="부서선택">
-										<Select>
-											<Select.Option value="demo">부서1</Select.Option>
-											<Select.Option value="demo">부서2</Select.Option>
-											<Select.Option value="demo">부서3</Select.Option>
-										</Select>
+									<Form.Item label="부서명">
+									    <Input style={{width:'400px',marginLeft:'-350px'}} onChange={(e) => {setDeptName(e.target.value)}}/>
 									</Form.Item>
-									<Form.Item name={['user', 'staff']} label="관리자">
-										<Input />
+									<Form.Item label="관리자">
+										<Input style={{width:'400px',marginLeft:'-350px'}}  onChange={(e) => {setDeptManager(e.target.value)}}/>
 									</Form.Item>
-									<Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-										<a href="http://localhost:3000/company/department">
-											<Button type="button">돌아가기</Button>
-										</a>
+									<Form.Item label="경로">
+										<Input style={{width:'400px',marginLeft:'-350px'}}  onChange={(e) => {setDeptPath(e.target.value)}}/>
+									</Form.Item>
+								    <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+									<Button
+              type={'primary'}
+              style={{ marginRight: '10px' }}
+              onClick={() => {
+                registerDept(
+				  deptName,
+				  deptManager,
+                  deptPath,
+                  
+                )
+              }}
+            >
+              등록
+            </Button>
 										&nbsp;
-										<Button type="primary" htmlType="submit">
-											등록하기
+										<Button type="primary" htmlType="submit" onClick={()=>{back()}}>
+											이전
 										</Button>
+									
 									</Form.Item>
 								</Form>
 							</div>
@@ -77,11 +123,11 @@ const DepartmentRegisterPresenter = (props) => {
 			</div>
 			);
 		</>
-	);
-};
-
+	
+	
+  )
+}
 DepartmentRegisterPresenter.propTypes = {};
-
 const style = {
 	headerLayout: {
 		background: '#fff',
@@ -92,6 +138,7 @@ const style = {
 		justifyContent: 'flex-start',
 		flexWrap: 'wrap',
 	},
+	
 };
+export default DepartmentRegisterPresenter
 
-export default DepartmentRegisterPresenter;

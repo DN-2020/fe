@@ -1,7 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { useState, useEffect, useContext } from 'react'
+
+
+import Emp_Register from '../../api/Emp_Register'
+
 import { Form, Input, InputNumber, Button, Select, Layout } from 'antd';
-const { Content, Sider, Header } = Layout;
+import { useHistory } from 'react-router-dom'
+
+function EmployeeRegisterPresenter(props) {
+	const { Content, Sider, Header } = Layout;
 const layout = {
 	labelCol: {
 		span: 8,
@@ -20,14 +26,56 @@ const validateMessages = {
 		range: '${label} must be between ${min} and ${max}',
 	},
 };
+let history = useHistory()
+const [empName, setEmpName] = useState({})
+const [empEmail, setEmpEmail] = useState('')
+const [department, setDepartment] = useState('')
+const [empPassword, setEmpPassoword] = useState('')
+const [empTel, setEmpTel] = useState('')
+const [empAddress, setEmpAddress] = useState('')
 
-const EmployeeRegisterPresenter = (props) => {
-	const onFinish = (values) => {
-		console.log(values);
-	};
-	return (
-		<>
-			<Header style={style.headerLayout}>
+
+const registerEmp = async (
+    empName,
+    empEmail,
+    department,
+    empPassword,
+    empTel,
+    empAddress,
+    
+  ) => {
+	  
+   
+
+    const body = {
+	  emp_nm: empName,
+	  emp_email: empEmail,
+	  emp_tel:empTel,
+      emp_pw: empPassword,
+      emp_address: empAddress,
+    
+    }
+    const response = await Emp_Register.emp_register(body)
+    if (response.code == 200) {
+	  console.log("등록")
+      history.push('/company/employee')
+    }
+  }
+ 
+
+
+  
+  const onFinish = (values) => {
+	console.log(values);
+};
+ 
+const back = () => {
+	history.push('/company/employee')
+}
+
+  return (
+    <>
+      <Header style={style.headerLayout}>
 				<h1>사원등록</h1>
 			</Header>
 			<div className="contentContainer" style={style.container}>
@@ -48,43 +96,46 @@ const EmployeeRegisterPresenter = (props) => {
 									onFinish={onFinish}
 									validateMessages={validateMessages}
 								>
-									<Form.Item
-										name={['user', 'name']}
-										label="회사명"
-										rules={[
-											{
-												required: false,
-											},
-										]}
-									>
-										<Input />
+									<Form.Item label="사원명">
+										<Input onChange={(e) => {setEmpName(e.target.value)}}/>
 									</Form.Item>
+							
 									<Form.Item label="부서선택">
-										<Select>
-											<Select.Option value="demo">부서1</Select.Option>
-											<Select.Option value="demo">부서2</Select.Option>
-											<Select.Option value="demo">부서3</Select.Option>
-										</Select>
+									    <Input onChange={(e) => {setDepartment(e.target.value)}}/>
 									</Form.Item>
-									<Form.Item name={['user', 'email']} label="아이디">
-										<Input />
+									<Form.Item label="이메일">
+										<Input onChange={(e) => {setEmpEmail(e.target.value)}}/>
 									</Form.Item>
-									<Form.Item name={['user', 'password']} label="비밀번호">
-										<Input type="password" />
+									<Form.Item label="비밀번호">
+										<Input type="password" onChange={(e) => {setEmpPassoword(e.target.value)}}/>
 									</Form.Item>
-									<Form.Item name={['user', 'tel']} label="전화번호">
-										<Input />
+									<Form.Item label="전화번호">
+										<Input onChange={(e) => {setEmpTel(e.target.value)}}/>
 									</Form.Item>
-									<Form.Item name={['user', 'address']} label="주소">
-										<Input />
+									<Form.Item label="주소">
+										<Input onChange={(e) => {setEmpAddress(e.target.value)}}/>
 									</Form.Item>
 									<Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-										<a href="http://localhost:3000/company/employee">
-											<Button type="button">돌아가기</Button>
-										</a>
+									<Button
+              type={'primary'}
+              style={{ marginRight: '10px' }}
+              onClick={() => {
+                registerEmp(
+				  empName,
+				  department,
+                  empEmail,
+                  empPassword,
+                  empTel,
+                  empAddress,
+                  
+                )
+              }}
+            >
+              등록
+            </Button>
 										&nbsp;
-										<Button type="primary" htmlType="submit">
-											등록하기
+										<Button type="primary" htmlType="submit" onClick={()=>{back()}}>
+											이전
 										</Button>
 									</Form.Item>
 								</Form>
@@ -94,10 +145,9 @@ const EmployeeRegisterPresenter = (props) => {
 				</Layout>
 			</div>
 			);
-		</>
-	);
-};
-
+    </>
+  )
+}
 EmployeeRegisterPresenter.propTypes = {};
 const style = {
 	headerLayout: {
@@ -110,4 +160,5 @@ const style = {
 		flexWrap: 'wrap',
 	},
 };
-export default EmployeeRegisterPresenter;
+export default EmployeeRegisterPresenter
+

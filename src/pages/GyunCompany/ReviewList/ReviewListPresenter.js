@@ -1,35 +1,38 @@
-import React, { useState, useEffect } from 'react'
-import { backend_url } from '../../../Utils'
-import PropTypes from 'prop-types'
-import Axios from 'axios'
-import { Layout, Menu, Button } from 'antd'
-import { Table } from 'antd'
-import { useHistory } from 'react-router-dom'
-import { get } from 'js-cookie'
-import { UploadOutlined, InboxOutlined } from '@ant-design/icons'
+import React, { useState, useEffect } from 'react';
+import { backend_url } from '../../../Utils';
+import PropTypes from 'prop-types';
+import Axios from 'axios';
+import { Layout, Menu, Button, Rate } from 'antd';
+import { Table } from 'antd';
+import { useHistory } from 'react-router-dom';
+import { get } from 'js-cookie';
+import { UploadOutlined, InboxOutlined } from '@ant-design/icons';
 
-const { Header, Footer, Sider, Content } = Layout
+const { Header, Footer, Sider, Content } = Layout;
 let config = {
   headers: {
     'Access-Control-Allow-Origin': true,
-    // 'Set-Cookie': Axios.defaults.headers.common['Set-Cookie'],
     Authorization: get('accessToken'),
   },
-}
+};
 
 const ReviewListPresenter = (props) => {
-  let arr1 = [1]
-  let history = useHistory()
-  const [reviewNo, setReviewNo] = useState()
-  const [key, setKey] = useState('')
-  const [reviews, setreviews] = useState([])
+  let arr1 = [1];
+  let history = useHistory();
+  const [reviewNo, setReviewNo] = useState();
+  const [goods_detail_nm, setGoods_detail_nm] = useState();
+  const [key, setKey] = useState('');
+  const [reviews, setreviews] = useState([]);
   const handleKey = (e) => {
+    console.log('hello');
     Axios.get(
-      `https://${backend_url}/v1/goods/${props.goods_seq[e.key.replace(/\item_/g, '')]}/review`,
+      `${backend_url}/v1/goods/${
+        props.goods_seq[e.key.replace(/\item_/g, '')]
+      }/review`,
       config
     ).then((e) => {
-      console.log(e)
       if (e.data.data != null) {
+        console.log(e);
         arr1 = e.data.data.map((e) => {
           return {
             seq: e.review_seq,
@@ -37,23 +40,15 @@ const ReviewListPresenter = (props) => {
             review: e.review_content,
             starRate: e.review_grade,
             end: e.reservation_end,
-          }
-        })
-        setreviews(arr1)
+            goods_detail_nm: e.goods_detail_nm,
+          };
+        });
+        setreviews(arr1);
       } else {
-        alert('리뷰가 없습니다')
+        alert('리뷰가 없습니다.');
       }
-    })
-  }
-
-  const [currentPage, setCurrentPage] = useState(1) //시작
-  const [postPerPage] = useState(5) //개수
-  let indexOfLastPost = currentPage * postPerPage //페이지에 마지막 데이터 인덱스/3
-  let indexOfFirstPost = indexOfLastPost - postPerPage //페이지 첫번째 데이터 인덱스/0
-  let datas = reviews.slice(indexOfFirstPost, indexOfLastPost) //  1*5 last = 5 ,,, first = 0/0,3/
-  let count = [] //  2*5 last = 10 ,,, first = 5
-  let total = Math.ceil(reviews.length / postPerPage) //버튼count
-
+    });
+  };
   const column = [
     {
       title: '리뷰번호',
@@ -68,11 +63,11 @@ const ReviewListPresenter = (props) => {
     },
     {
       title: '상품명',
-      key: 'seq',
-      dataIndex: 'seq',
+      key: 'goods_detail_nm',
+      dataIndex: 'goods_detail_nm',
       render: (text) => (
         <div>
-          {setReviewNo(text)}
+          {setGoods_detail_nm(text)}
           {text}
         </div>
       ),
@@ -87,7 +82,11 @@ const ReviewListPresenter = (props) => {
       title: '별점',
       key: 'starRate',
       dataIndex: 'starRate',
-      render: (text) => <div>{text}</div>,
+      render: (text) => (
+        <div>
+          <Rate disabled allowHalf defaultValue={text} />
+        </div>
+      ),
     },
     {
       title: '리뷰',
@@ -95,21 +94,16 @@ const ReviewListPresenter = (props) => {
       dataIndex: 'review',
       render: (text) => <div>{text}</div>,
     },
-  ]
+  ];
 
-  for (let i = 1; i <= total; i++) {
-    count.push(i)
-  }
   const handleRow = (data) => {
-    console.log(data)
-    // history.push(`/company/review/${data.seq}`);
+    console.log(data);
     history.push({
       pathname: `/company/review/${data.seq}`,
-      // search: `query=${data.seq}`,
       state: { detail: data },
-    })
-  }
-  console.log(reviewNo)
+    });
+  };
+  console.log(reviewNo);
   return (
     <>
       <Header style={style.headerLayout}>
@@ -119,24 +113,14 @@ const ReviewListPresenter = (props) => {
         <div className="reviewContainer" style={style.reviewContainer}>
           <Layout className="reviewContent">
             <Sider>
-              <h4 style={{ color: 'white', fontSize: '20px' }}>상품({props.goods_nm.length})</h4>
-              {/**           <Menu theme="dark" selectedKeys={key} mode="inline">
-                {props.goods_nm != null
-                  ? menuData.map((item) => {
-                      return (
-                        <Menu.Item key={`r${item.seq}`} onClick={handleKey}>
-                          {item.name}
-                        </Menu.Item>
-                      );
-                    })
-                  : 'data'}
+              <h4 style={{ color: 'white', fontSize: '20px' }}>
+                상품({props.goods_nm.length})
+              </h4>
 
-                <Menu.Item onClick={handleKey}>{props.goods_nm[0]}</Menu.Item>
-                  </Menu>**/}
               <Menu theme="dark" selectedKeys={key} mode="inline">
                 {props.goods_nm != null
                   ? props.goods_nm.map((e) => {
-                      return <Menu.Item onClick={handleKey}>{e}</Menu.Item>
+                      return <Menu.Item onClick={handleKey}>{e}</Menu.Item>;
                     })
                   : 'noData'}
               </Menu>
@@ -146,26 +130,21 @@ const ReviewListPresenter = (props) => {
                 onRow={(record, rowIndex) => {
                   return {
                     onClick: (e) => handleRow(record, rowIndex),
-                  }
+                  };
                 }}
                 columns={column}
-                dataSource={datas}
-                pagination={false}
+                dataSource={reviews}
+                pagination={true}
               ></Table>
-              {count.map((e) => (
-                <Button key={e} onClick={() => setCurrentPage(e)}>
-                  {e}
-                </Button>
-              ))}
             </Content>
           </Layout>
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-ReviewListPresenter.propTypes = {}
+ReviewListPresenter.propTypes = {};
 const style = {
   headerLayout: {
     background: '#fff',
@@ -194,5 +173,5 @@ const style = {
     width: '100%',
     height: '100%',
   },
-}
-export default ReviewListPresenter
+};
+export default ReviewListPresenter;

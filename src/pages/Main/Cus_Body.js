@@ -1,37 +1,37 @@
-import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper'
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 
-import { Card, Empty, Rate } from 'antd'
+import { Card, Empty, Rate } from 'antd';
 
-import { useHistory } from 'react-router-dom'
-import 'swiper/swiper-bundle.css'
-import GyunProductAPI from '../../api/GyunProductAPI'
-import { bucket_url } from '../../Utils'
-SwiperCore.use([Navigation, Pagination, Scrollbar, A11y])
+import { useHistory } from 'react-router-dom';
+import 'swiper/swiper-bundle.css';
+import GyunProductAPI from '../../api/GyunProductAPI';
+import { bucket_url } from '../../Utils';
+SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 const Cus_Body = (props) => {
-  let history = useHistory()
-  const [data, setData] = useState([])
+  let history = useHistory();
+  const [data, setData] = useState([]);
   useEffect(() => {
-    getData()
-  }, [])
+    getData();
+  }, []);
   const getData = async () => {
-    let tempData = []
+    let tempData = [];
     for (var i = 1; i < 6; i++) {
-      let dataCategory = await GyunProductAPI.getProductCat(i)
-      tempData = tempData.concat(dataCategory.data)
+      let dataCategory = await GyunProductAPI.getProductCat(i);
+      tempData = tempData.concat(dataCategory.data);
     }
-    setData(tempData)
-  }
-  const { Meta } = Card
+    setData(tempData);
+  };
+  const { Meta } = Card;
   const imageStyle = {
     verticalAlign: 'center',
     width: '100 %',
-  }
+  };
   const SlideStyle = {
     marginLeft: '10px',
-  }
+  };
   const options = {
     loop: true,
     slidesPerView: 1,
@@ -39,21 +39,25 @@ const Cus_Body = (props) => {
     spaceBetween: 50,
     pagination: { clickable: true },
     style: { paddingBottom: '1%', border: '0.1px solid lightgray' },
-  }
+  };
   const slideStyle = {
     height: '700',
     width: 300,
-  }
-  const contentOption = {}
+  };
+  const contentOption = {};
   const handleProduct = (e) => {
-    history.push(`/user/productDetail/${e}`)
-  }
-  const value = 1
+    history.push(`/user/productDetail/${e}`);
+  };
+  const value = 1;
   return (
     <div style={{ width: '80%', marginLeft: '10%', marginTop: '1%' }}>
       <div className="gyun_body_container">
         <div className="image_slide">
-          <Swiper style={{ border: '1px solid lightgray' }} {...options} className="gyun_swiper">
+          <Swiper
+            style={{ border: '1px solid lightgray' }}
+            {...options}
+            className="gyun_swiper"
+          >
             <SwiperSlide key={1} style={slideStyle}>
               <img style={imageStyle} src="logo192.png"></img>
             </SwiperSlide>
@@ -71,9 +75,17 @@ const Cus_Body = (props) => {
       </div>
 
       <div className="main_content" style={{ marginTop: '5%', height: '80%' }}>
-        <h1 style={{ textAlign: 'left', width: '100%', fontSize: '30px' }}>펜션</h1>
-        <div className="main_rent_car" style={{ display: 'flex', justifyContent: 'flex-start' }}>
-          <Swiper slidesPerView={5.5} style={{ width: '80%', textAlign: 'left', margin: '0' }}>
+        <h1 style={{ textAlign: 'left', width: '100%', fontSize: '30px' }}>
+          펜션
+        </h1>
+        <div
+          className="main_rent_car"
+          style={{ display: 'flex', justifyContent: 'flex-start' }}
+        >
+          <Swiper
+            slidesPerView={5.5}
+            style={{ width: '80%', textAlign: 'left', margin: '0' }}
+          >
             {data.length > 0 ? (
               data.map((value, key) => {
                 if (value != null && value.t_goods_type_seq == 1) {
@@ -91,12 +103,18 @@ const Cus_Body = (props) => {
                         }
                       >
                         <div>
-                          <Meta title={value.goods_detail_nm} description={value.goods_address} />
-                          <Rate disabled defaultValue={value.goods_grade}></Rate>
+                          <Meta
+                            title={value.goods_detail_nm}
+                            description={value.goods_address}
+                          />
+                          <Rate
+                            disabled
+                            defaultValue={value.goods_grade}
+                          ></Rate>
                         </div>
                       </Card>
                     </SwiperSlide>
-                  )
+                  );
                 }
               })
             ) : (
@@ -106,9 +124,17 @@ const Cus_Body = (props) => {
         </div>
       </div>
       <div className="main_content" style={{ marginTop: '5%', height: '80%' }}>
-        <h1 style={{ textAlign: 'left', width: '100%', fontSize: '30px' }}>리조트</h1>
-        <div className="main_rent_car" style={{ display: 'flex', justifyContent: 'flex-start' }}>
-          <Swiper slidesPerView={5.5} style={{ width: '80%', textAlign: 'left', margin: '0' }}>
+        <h1 style={{ textAlign: 'left', width: '100%', fontSize: '30px' }}>
+          리조트
+        </h1>
+        <div
+          className="main_rent_car"
+          style={{ display: 'flex', justifyContent: 'flex-start' }}
+        >
+          <Swiper
+            slidesPerView={5.5}
+            style={{ width: '80%', textAlign: 'left', margin: '0' }}
+          >
             {data.length > 0 ? (
               data.map((value, key) => {
                 if (value != null && value.t_goods_type_seq == 2) {
@@ -126,12 +152,18 @@ const Cus_Body = (props) => {
                         }
                       >
                         <div>
-                          <Meta title={value.goods_detail_nm} description={value.goods_address} />
-                          <Rate disabled defaultValue={value.goods_grade}></Rate>
+                          <Meta
+                            title={value.goods_detail_nm}
+                            description={value.goods_address}
+                          />
+                          <Rate
+                            disabled
+                            defaultValue={value.goods_grade}
+                          ></Rate>
                         </div>
                       </Card>
                     </SwiperSlide>
-                  )
+                  );
                 }
               })
             ) : (
@@ -141,9 +173,17 @@ const Cus_Body = (props) => {
         </div>
       </div>
       <div className="main_content" style={{ marginTop: '5%', height: '80%' }}>
-        <h1 style={{ textAlign: 'left', width: '100%', fontSize: '30px' }}>자전거</h1>
-        <div className="main_rent_car" style={{ display: 'flex', justifyContent: 'flex-start' }}>
-          <Swiper slidesPerView={5.5} style={{ width: '80%', textAlign: 'left', margin: '0' }}>
+        <h1 style={{ textAlign: 'left', width: '100%', fontSize: '30px' }}>
+          자전거
+        </h1>
+        <div
+          className="main_rent_car"
+          style={{ display: 'flex', justifyContent: 'flex-start' }}
+        >
+          <Swiper
+            slidesPerView={5.5}
+            style={{ width: '80%', textAlign: 'left', margin: '0' }}
+          >
             {data.length > 0 ? (
               data.map((value, key) => {
                 if (value != null && value.t_goods_type_seq == 3) {
@@ -161,12 +201,18 @@ const Cus_Body = (props) => {
                         }
                       >
                         <div>
-                          <Meta title={value.goods_detail_nm} description={value.goods_address} />
-                          <Rate disabled defaultValue={value.goods_grade}></Rate>
+                          <Meta
+                            title={value.goods_detail_nm}
+                            description={value.goods_address}
+                          />
+                          <Rate
+                            disabled
+                            defaultValue={value.goods_grade}
+                          ></Rate>
                         </div>
                       </Card>
                     </SwiperSlide>
-                  )
+                  );
                 }
               })
             ) : (
@@ -176,9 +222,17 @@ const Cus_Body = (props) => {
         </div>
       </div>
       <div className="main_content" style={{ marginTop: '5%', height: '80%' }}>
-        <h1 style={{ textAlign: 'left', width: '100%', fontSize: '30px' }}>자동차</h1>
-        <div className="main_rent_car" style={{ display: 'flex', justifyContent: 'flex-start' }}>
-          <Swiper slidesPerView={5.5} style={{ width: '80%', textAlign: 'left', margin: '0' }}>
+        <h1 style={{ textAlign: 'left', width: '100%', fontSize: '30px' }}>
+          자동차
+        </h1>
+        <div
+          className="main_rent_car"
+          style={{ display: 'flex', justifyContent: 'flex-start' }}
+        >
+          <Swiper
+            slidesPerView={5.5}
+            style={{ width: '80%', textAlign: 'left', margin: '0' }}
+          >
             {data.length > 0 ? (
               data.map((value, key) => {
                 if (value != null && value.t_goods_type_seq == 4) {
@@ -196,12 +250,18 @@ const Cus_Body = (props) => {
                         }
                       >
                         <div>
-                          <Meta title={value.goods_detail_nm} description={value.goods_address} />
-                          <Rate disabled defaultValue={value.goods_grade}></Rate>
+                          <Meta
+                            title={value.goods_detail_nm}
+                            description={value.goods_address}
+                          />
+                          <Rate
+                            disabled
+                            defaultValue={value.goods_grade}
+                          ></Rate>
                         </div>
                       </Card>
                     </SwiperSlide>
-                  )
+                  );
                 }
               })
             ) : (
@@ -211,9 +271,17 @@ const Cus_Body = (props) => {
         </div>
       </div>
       <div className="main_content" style={{ marginTop: '5%', height: '80%' }}>
-        <h1 style={{ textAlign: 'left', width: '100%', fontSize: '30px' }}>오토바이</h1>
-        <div className="main_rent_car" style={{ display: 'flex', justifyContent: 'flex-start' }}>
-          <Swiper slidesPerView={5.5} style={{ width: '80%', textAlign: 'left', margin: '0' }}>
+        <h1 style={{ textAlign: 'left', width: '100%', fontSize: '30px' }}>
+          오토바이
+        </h1>
+        <div
+          className="main_rent_car"
+          style={{ display: 'flex', justifyContent: 'flex-start' }}
+        >
+          <Swiper
+            slidesPerView={5.5}
+            style={{ width: '80%', textAlign: 'left', margin: '0' }}
+          >
             {data.length > 0 ? (
               data.map((value, key) => {
                 if (value != null && value.t_goods_type_seq == 5) {
@@ -231,12 +299,18 @@ const Cus_Body = (props) => {
                         }
                       >
                         <div>
-                          <Meta title={value.goods_detail_nm} description={value.goods_address} />
-                          <Rate disabled defaultValue={value.goods_grade}></Rate>
+                          <Meta
+                            title={value.goods_detail_nm}
+                            description={value.goods_address}
+                          />
+                          <Rate
+                            disabled
+                            defaultValue={value.goods_grade}
+                          ></Rate>
                         </div>
                       </Card>
                     </SwiperSlide>
-                  )
+                  );
                 }
               })
             ) : (
@@ -253,9 +327,9 @@ const Cus_Body = (props) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-Cus_Body.propTypes = {}
+Cus_Body.propTypes = {};
 
-export default Cus_Body
+export default Cus_Body;
